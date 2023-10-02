@@ -10,19 +10,19 @@ public sealed class BoxDTO
     /// <summary>
     /// The width of the box in milimeters
     /// </summary>
-    [MaxLength(2000)]
+    [Range(0, 2000)]
     public short Width { get; set; }
 
     /// <summary>
     /// The height of the box in milimeters
     /// </summary>
-    [MaxLength(2000)]
+    [Range(0, 2000)]
     public short Height { get; set; }
 
     /// <summary>
     /// The length of the box in milimeters
     /// </summary>
-    [MaxLength(2000)]
+    [Range(0, 2000)]
     public short Length { get; set; }
 
     /// <summary>

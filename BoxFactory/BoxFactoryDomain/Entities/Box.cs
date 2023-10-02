@@ -1,4 +1,6 @@
-﻿namespace BoxFactoryDomain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BoxFactoryDomain.Entities;
 
 public sealed class Box
 {
@@ -7,17 +9,20 @@ public sealed class Box
     /// <summary>
     /// The width of the box in milimeters
     /// </summary>
-    public int Width { get; set; }
+    [Range(0, 2000)]
+    public short Width { get; set; }
 
     /// <summary>
     /// The height of the box in milimeters
     /// </summary>
-    public int Height { get; set; }
+    [Range(0, 2000)]
+    public short Height { get; set; }
 
     /// <summary>
     /// The length of the box in milimeters
     /// </summary>
-    public int Length { get; set; }
+    [Range(0, 2000)]
+    public short Length { get; set; }
 
     /// <summary>
     /// Weight in grams
