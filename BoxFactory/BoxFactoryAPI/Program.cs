@@ -1,3 +1,4 @@
+using BoxFactoryAPI.Middleware;
 using BoxFactoryApplication.Extensions;
 using BoxFactoryInfrastructure.Extensions;
 
@@ -11,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.UseBoxFactoryServices();
-builder.Services.UseBoxFactoryInfrastructure();
+builder.Services.UseBoxFactoryInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
@@ -21,6 +22,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

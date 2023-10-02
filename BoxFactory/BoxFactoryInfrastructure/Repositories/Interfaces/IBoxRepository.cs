@@ -4,11 +4,12 @@ namespace BoxFactoryInfrastructure.Repositories.Interfaces;
 
 public interface IBoxRepository
 {
-    public List<Box> GetAllBoxes();
+    public Task<List<Box>> GetAllBoxes();
 
-    public Box GetBoxById(int id);
+    public Task<Box?> GetBoxById(int id);
 
-    public Box DeleteBoxById(int id);
+    public Task<bool> DeleteBoxById(int id);
 
-    public Box UpdateBox();
+    public Task<Box> UpdateBox();
+    public Task<Box?> Create(short width, short height, short length, int weight, BoxColor color);
 }

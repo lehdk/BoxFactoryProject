@@ -1,27 +1,39 @@
 ﻿using BoxFactoryApplication.Services.Interfaces;
 using BoxFactoryDomain.Entities;
+using BoxFactoryInfrastructure.Repositories.Interfaces;
 
 namespace BoxFactoryApplication.Services;
 
 public sealed class BoxService : IBoxService
 {
-    public Box DeleteBoxById(int id)
+    private readonly IBoxRepository _boxRepository;
+
+    public BoxService(IBoxRepository boxRepository)
+    {
+        _boxRepository = boxRepository;
+    }
+
+    public async Task<List<Box>> GetAllBoxes()
+    {
+        return await _boxRepository.GetAllBoxes();
+    }
+
+    public async Task<Box?> GetBoxById(int id)
+    {
+        return await _boxRepository.GetBoxById(id);
+    }
+
+    public async Task<Box?> Create(short width, short height, short length, int weight, BoxColor color)
+    {
+        return await _boxRepository.Create(width, height, length, weight, color);
+    }
+
+    public Task<Box> UpdateBox()
     {
         throw new NotImplementedException();
     }
-
-    public List<Box> GetAllBoxes()
+    public async Task<bool> DeleteBoxById(int id)
     {
-        throw new NotImplementedException();
-    }
-
-    public Box GetBoxById(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Box UpdateBox()
-    {
-        throw new NotImplementedException();
+        return await _boxRepository.DeleteBoxById(id);
     }
 }

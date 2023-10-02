@@ -1,27 +1,186 @@
 ﻿using BoxFactoryDomain.Entities;
+using BoxFactoryInfrastructure.Configuration;
 using BoxFactoryInfrastructure.Repositories.Interfaces;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
 
 namespace BoxFactoryInfrastructure.Repositories;
 
 public sealed class BoxRepository : IBoxRepository
 {
-    public Box DeleteBoxById(int id)
+    private readonly ILogger<BoxRepository> _logger;
+    private readonly string _connectionString;
+
+    public BoxRepository(ILogger<BoxRepository> logger, DatabaseConnectionString dbConnectionString)
+    {
+        _logger = logger;
+        _connectionString = dbConnectionString.ConnectionString;
+    }
+
+    private SqlConnection GetSqlConnection => new SqlConnection(_connectionString);
+
+    public async Task<List<Box>> GetAllBoxes()
+    {
+
+        var result = new List<Box>();
+
+        using (var connection = GetSqlConnection)
+        {
+            await connection.OpenAsync();
+
+            const string query = @"
+SELECT [Id]
+      ,[Width]
+      ,[Height]
+      ,[Length]
+      ,[Weight]
+      ,[Color]
+      ,[CreatedAt]
+  FROM [BoxFactory].[dbo].[Box]";
+
+            using(var command = new SqlCommand(query, connection))
+            {
+                var reader = await command.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    result.Add(new Box()
+                    {
+                        Id = reader.GetInt32(0),
+                        Width = reader.GetInt16(1),
+                        Height = reader.GetInt16(2),
+                        Length = reader.GetInt16(3),
+                        Weight = reader.GetInt32(4),
+                        Color = (BoxColor) reader.GetByte(5),
+                        CreatedAt = reader.GetDateTime(6),
+                    });
+                }
+            }
+
+            await connection.CloseAsync();
+        }
+
+        return result;
+    }
+
+    public async Task<Box?> GetBoxById(int id)
+    {
+        Box? result = null;
+
+        using (var connection = GetSqlConnection)
+        {
+            await connection.OpenAsync();
+
+            const string query = @"
+SELECT [Id]
+      ,[Width]
+      ,[Height]
+      ,[Length]
+      ,[Weight]
+      ,[Color]
+      ,[CreatedAt]
+FROM [BoxFactory].[dbo].[Box]
+WHERE [Id] = @Id";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+
+                command.Parameters.AddWithValue("@Id", id);
+
+                var reader = await command.ExecuteReaderAsync();
+
+                if (reader.HasRows && await reader.ReadAsync())
+                {
+                    result = new Box()
+                    {
+                        Id = reader.GetInt32(0),
+                        Width = reader.GetInt16(1),
+                        Height = reader.GetInt16(2),
+                        Length = reader.GetInt16(3),
+                        Weight = reader.GetInt32(4),
+                        Color = (BoxColor)reader.GetByte(5),
+                        CreatedAt = reader.GetDateTime(6),
+                    };
+                }
+            }
+
+            await connection.CloseAsync();
+        }
+
+        return result;
+    }
+
+    public Task<Box> UpdateBox()
     {
         throw new NotImplementedException();
     }
 
-    public List<Box> GetAllBoxes()
+    public async Task<bool> DeleteBoxById(int id)
     {
-        throw new NotImplementedException();
+        bool result = false;
+
+        using (var connection = GetSqlConnection)
+        {
+            await connection.OpenAsync();
+
+            const string query = @"DELETE FROM [BoxFactory].[dbo].[Box] WHERE [Id] = @Id";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+
+                command.Parameters.AddWithValue("@Id", id);
+
+                var rowsAffected = await command.ExecuteNonQueryAsync(); 
+                
+                result = rowsAffected > 0;
+            }
+
+            await connection.CloseAsync();
+        }
+
+        return result;
     }
 
-    public Box GetBoxById(int id)
+    public async Task<Box?> Create(short width, short height, short length, int weight, BoxColor color)
     {
-        throw new NotImplementedException();
-    }
+        int? insertedId = null;
 
-    public Box UpdateBox()
-    {
-        throw new NotImplementedException();
+        using (var connection = GetSqlConnection)
+        {
+            await connection.OpenAsync();
+
+            const string query = @"
+INSERT INTO [Box] 
+([Width], [Height], [Length], [Weight], [Color])
+OUTPUT INSERTED.Id
+VALUES (@Width, @Height, @Length, @Weight, @Color);
+";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+
+                command.Parameters.AddWithValue("@Width", width);
+                command.Parameters.AddWithValue("@Height", height);
+                command.Parameters.AddWithValue("@Length", length);
+                command.Parameters.AddWithValue("@Weight", weight);
+                command.Parameters.AddWithValue("@Color", color);
+
+                var reader = await command.ExecuteReaderAsync();
+
+                if (reader.HasRows && await reader.ReadAsync())
+                {
+                    insertedId = reader.GetInt32(0);
+                }
+            }
+
+            await connection.CloseAsync();
+        }
+
+        if (insertedId is null)
+            return null;
+
+        var result = await GetBoxById(insertedId.Value);
+
+        return result;
     }
 }

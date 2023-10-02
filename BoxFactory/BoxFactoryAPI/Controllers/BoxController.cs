@@ -1,5 +1,6 @@
 using BoxFactoryAPI.TransferModels;
 using BoxFactoryApplication.Services.Interfaces;
+using BoxFactoryDomain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoxFactoryAPI.Controllers;
@@ -21,11 +22,11 @@ public class BoxController : ControllerBase
     [ProducesResponseType(typeof(List<BoxDTO>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
         _logger.LogInformation("Getting all boxes");
 
-        var result = _boxService.GetAllBoxes();
+        var result = await _boxService.GetAllBoxes();
 
         return Ok(result);
     }
@@ -34,11 +35,28 @@ public class BoxController : ControllerBase
     [ProducesResponseType(typeof(BoxDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult Get(int id)
+    public async Task<IActionResult> Get(int id)
     {
         _logger.LogInformation("Getting box with id {id}", id);
 
-        var result = _boxService.GetBoxById(id);
+        var result = await _boxService.GetBoxById(id);
+
+        return Ok(result);
+    }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(Box), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Post([FromBody] ModifyObject postObject)
+    {
+        _logger.LogInformation("Creating a new box");
+
+        var result = await _boxService.Create(postObject.Width, postObject.Height, postObject.Length, postObject.Weight, postObject.Color);
+
+        if(result is null )
+        {
+            throw new Exception("Could not create a new box");
+        }
 
         return Ok(result);
     }
@@ -47,11 +65,11 @@ public class BoxController : ControllerBase
     [ProducesResponseType(typeof(BoxDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult Patch(int id, [FromBody] PatchObject patchObject)
+    public async Task<IActionResult> Patch(int id, [FromBody] ModifyObject patchObject)
     {
         _logger.LogInformation("Patching box with id {id} with data {@data}", id, patchObject);
 
-        var result = _boxService.UpdateBox();
+        var result = await _boxService.UpdateBox();
 
         return Ok(result);
     }
@@ -59,11 +77,16 @@ public class BoxController : ControllerBase
     [HttpDelete("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         _logger.LogInformation("Deleting box with id {id}", id);
 
-        _boxService.DeleteBoxById(id);
+        var result = await _boxService.DeleteBoxById(id);
+
+        if (!result)
+        {
+            return NotFound();
+        }
 
         return NoContent();
     }
