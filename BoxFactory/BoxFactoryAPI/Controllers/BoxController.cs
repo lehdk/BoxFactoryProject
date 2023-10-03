@@ -1,3 +1,4 @@
+using BoxFactoryAPI.Extensions;
 using BoxFactoryAPI.TransferModels;
 using BoxFactoryApplication.Services.Interfaces;
 using BoxFactoryDomain.Entities;
@@ -26,7 +27,9 @@ public class BoxController : ControllerBase
     {
         _logger.LogInformation("Getting all boxes");
 
-        var result = await _boxService.GetAllBoxes();
+        var allBoxes = await _boxService.GetAllBoxes();
+
+        var result = allBoxes.ToDto();
 
         return Ok(result);
     }
@@ -44,11 +47,11 @@ public class BoxController : ControllerBase
         if(result is null)
             return NotFound();
 
-        return Ok(result);
+        return Ok(result.ToDto());
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(Box), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BoxDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post([FromBody] ModifyObject postObject)
     {
@@ -59,7 +62,7 @@ public class BoxController : ControllerBase
         if (result is null)
             throw new Exception("Could not create a new box");
 
-        return Ok(result);
+        return Ok(result.ToDto());
     }
 
     [HttpPatch("{id:int}")]
@@ -75,7 +78,7 @@ public class BoxController : ControllerBase
         if(result is null)
             return NotFound();
 
-        return Ok(result);
+        return Ok(result.ToDto());
     }
 
     [HttpDelete("{id:int}")]
