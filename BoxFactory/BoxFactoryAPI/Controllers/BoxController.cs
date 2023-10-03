@@ -56,10 +56,8 @@ public class BoxController : ControllerBase
 
         var result = await _boxService.Create(postObject.Width, postObject.Height, postObject.Length, postObject.Weight, postObject.Color);
 
-        if(result is null )
-        {
+        if (result is null)
             throw new Exception("Could not create a new box");
-        }
 
         return Ok(result);
     }

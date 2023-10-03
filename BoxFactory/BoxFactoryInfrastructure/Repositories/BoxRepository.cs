@@ -2,26 +2,22 @@
 using BoxFactoryInfrastructure.Configuration;
 using BoxFactoryInfrastructure.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
 
 namespace BoxFactoryInfrastructure.Repositories;
 
 public sealed class BoxRepository : IBoxRepository
 {
-    private readonly ILogger<BoxRepository> _logger;
     private readonly string _connectionString;
 
-    public BoxRepository(ILogger<BoxRepository> logger, DatabaseConnectionString dbConnectionString)
+    public BoxRepository(DatabaseConnectionString dbConnectionString)
     {
-        _logger = logger;
         _connectionString = dbConnectionString.ConnectionString;
     }
 
-    private SqlConnection GetSqlConnection => new SqlConnection(_connectionString);
+    private SqlConnection GetSqlConnection => new(_connectionString);
 
     public async Task<List<Box>> GetAllBoxes()
     {
-
         var result = new List<Box>();
 
         using (var connection = GetSqlConnection)
@@ -38,7 +34,7 @@ SELECT [Id]
       ,[CreatedAt]
   FROM [BoxFactory].[dbo].[Box]";
 
-            using(var command = new SqlCommand(query, connection))
+            using (var command = new SqlCommand(query, connection))
             {
                 var reader = await command.ExecuteReaderAsync();
 
@@ -51,7 +47,7 @@ SELECT [Id]
                         Height = reader.GetInt16(2),
                         Length = reader.GetInt16(3),
                         Weight = reader.GetInt32(4),
-                        Color = (BoxColor) reader.GetByte(5),
+                        Color = (BoxColor)reader.GetByte(5),
                         CreatedAt = reader.GetDateTime(6),
                     });
                 }
@@ -142,7 +138,7 @@ WHERE [Id] = @Id
 
                 var rowsAffected = await command.ExecuteNonQueryAsync();
 
-                if(rowsAffected > 0)
+                if (rowsAffected > 0)
                 {
                     box.Id = id;
                     box.Width = width;
@@ -174,8 +170,8 @@ WHERE [Id] = @Id
 
                 command.Parameters.AddWithValue("@Id", id);
 
-                var rowsAffected = await command.ExecuteNonQueryAsync(); 
-                
+                var rowsAffected = await command.ExecuteNonQueryAsync();
+
                 result = rowsAffected > 0;
             }
 
