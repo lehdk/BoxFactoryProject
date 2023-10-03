@@ -1,7 +1,6 @@
 using BoxFactoryAPI.Extensions;
 using BoxFactoryAPI.TransferModels;
 using BoxFactoryApplication.Services.Interfaces;
-using BoxFactoryDomain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoxFactoryAPI.Controllers;
@@ -71,7 +70,7 @@ public class BoxController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Patch(int id, [FromBody] ModifyObject patchObject)
     {
-        _logger.LogInformation("Patching box with id {id} with data {@data}", id, patchObject);
+        _logger.LogInformation("Patching box with id {id} with data {data}", id, patchObject);
 
         var result = await _boxService.UpdateBox(id, patchObject.Width, patchObject.Height, patchObject.Length, patchObject.Weight, patchObject.Color);
 
