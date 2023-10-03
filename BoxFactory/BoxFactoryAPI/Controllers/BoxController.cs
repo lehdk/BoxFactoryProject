@@ -41,6 +41,9 @@ public class BoxController : ControllerBase
 
         var result = await _boxService.GetBoxById(id);
 
+        if(result is null)
+            return NotFound();
+
         return Ok(result);
     }
 
