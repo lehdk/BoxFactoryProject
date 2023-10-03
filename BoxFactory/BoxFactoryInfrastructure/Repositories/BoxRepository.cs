@@ -84,7 +84,6 @@ WHERE [Id] = @Id";
 
             using (var command = new SqlCommand(query, connection))
             {
-
                 command.Parameters.AddWithValue("@Id", id);
 
                 var reader = await command.ExecuteReaderAsync();
@@ -110,9 +109,55 @@ WHERE [Id] = @Id";
         return result;
     }
 
-    public Task<Box> UpdateBox()
+    public async Task<Box?> UpdateBox(int id, short width, short height, short length, int weight, BoxColor color)
     {
-        throw new NotImplementedException();
+        Box? box = await GetBoxById(id);
+
+        if (box is null)
+            return null;
+
+        using (var connection = GetSqlConnection)
+        {
+            await connection.OpenAsync();
+
+            const string query = @"
+UPDATE [BoxFactory].[dbo].[Box] 
+SET 
+    [Width] = @Width,
+    [Height] = @Height,
+    [Length] = @Length,
+    [Weight] = @Weight,
+    [Color] = @Color
+WHERE [Id] = @Id
+";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Id", id);
+                command.Parameters.AddWithValue("@Width", width);
+                command.Parameters.AddWithValue("@Height", height);
+                command.Parameters.AddWithValue("@Length", length);
+                command.Parameters.AddWithValue("@Weight", weight);
+                command.Parameters.AddWithValue("@Color", color);
+
+                var rowsAffected = await command.ExecuteNonQueryAsync();
+
+                if(rowsAffected > 0)
+                {
+                    box.Id = id;
+                    box.Width = width;
+                    box.Height = height;
+                    box.Length = length;
+                    box.Weight = weight;
+                    box.Color = color;
+                }
+            }
+
+            await connection.CloseAsync();
+        }
+
+
+        return box;
     }
 
     public async Task<bool> DeleteBoxById(int id)

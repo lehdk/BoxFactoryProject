@@ -72,7 +72,7 @@ public class BoxController : ControllerBase
     {
         _logger.LogInformation("Patching box with id {id} with data {@data}", id, patchObject);
 
-        var result = await _boxService.UpdateBox();
+        var result = await _boxService.UpdateBox(id, patchObject.Width, patchObject.Height, patchObject.Length, patchObject.Weight, patchObject.Color);
 
         return Ok(result);
     }

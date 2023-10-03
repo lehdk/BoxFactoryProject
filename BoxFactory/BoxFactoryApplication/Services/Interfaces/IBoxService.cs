@@ -10,7 +10,7 @@ public interface IBoxService
 
     public Task<bool> DeleteBoxById(int id);
 
-    public Task<Box> UpdateBox();
+    public Task<Box> UpdateBox(int id, short width, short height, short length, int weight, BoxColor color);
 
     public Task<Box?> Create(short width, short height, short length, int weight, BoxColor color);
 }
