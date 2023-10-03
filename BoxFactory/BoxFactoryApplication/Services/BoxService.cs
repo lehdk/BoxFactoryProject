@@ -28,7 +28,7 @@ public sealed class BoxService : IBoxService
         return await _boxRepository.Create(width, height, length, weight, color);
     }
 
-    public async Task<Box> UpdateBox(int id, short width, short height, short length, int weight, BoxColor color)
+    public async Task<Box?> UpdateBox(int id, short width, short height, short length, int weight, BoxColor color)
     {
         return await _boxRepository.UpdateBox(id, width, height, length, weight, color);
     }

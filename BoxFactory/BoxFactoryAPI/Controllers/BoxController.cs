@@ -74,6 +74,9 @@ public class BoxController : ControllerBase
 
         var result = await _boxService.UpdateBox(id, patchObject.Width, patchObject.Height, patchObject.Length, patchObject.Weight, patchObject.Color);
 
+        if(result is null)
+            return NotFound();
+
         return Ok(result);
     }
 

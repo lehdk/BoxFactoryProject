@@ -156,7 +156,6 @@ WHERE [Id] = @Id
             await connection.CloseAsync();
         }
 
-
         return box;
     }
 
