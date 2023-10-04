@@ -1,5 +1,4 @@
 <main>
-
 	<ion-grid>
 		<ion-row>
 			<ion-col>Id</ion-col>
@@ -9,7 +8,7 @@
 			<ion-col></ion-col>
 			<ion-col></ion-col>
 		</ion-row>
-		<ion-row *ngFor="let box of boxes">
+		<ion-row class="clickableRow" (click)="showBox(box.id)" *ngFor="let box of boxes">
 			<ion-col>{{box.id}}</ion-col>
 			<ion-col>{{box.width}}</ion-col>
 			<ion-col>{{box.height}}</ion-col>

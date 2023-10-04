@@ -1,3 +1,5 @@
+import { Pipe, PipeTransform } from "@angular/core";
+
 export type Box = {
   id: number;
   width: number;
@@ -25,4 +27,11 @@ export enum BoxColor {
   Lavender = 13,
   Turquoise = 14,
   Maroon = 15,
+}
+
+@Pipe({name: 'boxColorDisplayName'})
+export class BoxColorDisplayNamePipe implements PipeTransform {
+    transform(value: BoxColor, ...args: any[]) {
+        return BoxColor[value];
+    }
 }

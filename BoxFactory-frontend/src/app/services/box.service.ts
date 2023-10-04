@@ -22,6 +22,10 @@ export class BoxService {
 		response.subscribe(boxes => this.boxes.next(boxes));
 	}
 
+    getBox(id: number) {
+        return this.http.get<Box | null>(`${this.url}/${id}`);
+    }
+
 	delete(id: number): void {
 
 		let response = this.http.delete(this.url + "/" + id, { observe: "response" });

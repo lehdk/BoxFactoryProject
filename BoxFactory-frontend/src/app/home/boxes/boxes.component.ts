@@ -4,6 +4,7 @@ import { BoxService } from 'src/app/services/box.service';
 import { UpdateboxComponent } from '../updatebox/updatebox.component';
 import { ModalController } from '@ionic/angular';
 import { ModifyBox } from 'src/app/models/requestModels/ModifyBox';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-boxes',
@@ -14,7 +15,7 @@ export class BoxesComponent implements OnInit {
 
 	boxes: Box[] = [];
 
-	constructor(private boxservice: BoxService, private modalController: ModalController) { }
+	constructor(private boxservice: BoxService, private modalController: ModalController, private router: Router) { }
 
 	ngOnInit(): void {
 		this.boxservice.loadAllBoxes();
@@ -60,4 +61,8 @@ export class BoxesComponent implements OnInit {
 
 		await modal.present();
 	}
+
+    showBox(id: number) {
+        this.router.navigate([`boxes/view/${id}`]);
+    }
 }

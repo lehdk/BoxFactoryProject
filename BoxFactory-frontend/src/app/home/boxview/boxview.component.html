@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-row style="margin-left: 10px;">
+            <span style="font-size: 16px; cursor: pointer;" (click)="goBack()"><i>Back</i></span>
+            <ion-title>Box: <span>{{id}}</span></ion-title>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div *ngIf="box; else noData">
+        <ion-grid>
+            <ion-row>
+                <ion-col>Id</ion-col>
+                <ion-col>Width</ion-col>
+                <ion-col>Height</ion-col>
+                <ion-col>Length</ion-col>
+                <ion-col>Weight</ion-col>
+                <ion-col>Color</ion-col>
+                <ion-col>Created At</ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>{{box.id}}</ion-col>
+                <ion-col>{{box.width}}</ion-col>
+                <ion-col>{{box.height}}</ion-col>
+                <ion-col>{{box.length}}</ion-col>
+                <ion-col>{{box.weight}}</ion-col>
+                <ion-col>{{box.color | boxColorDisplayName}}</ion-col>
+                <ion-col>{{box.createdAt | date: 'dd/MM/yyyy - HH:mm'}} (UTC)</ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <ng-template #noData >
+        <span *ngIf="box === null; else loading">No box found with the id {{id}}</span>
+        <ng-template #loading>
+            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </ng-template>
+    </ng-template>
+</ion-content>
