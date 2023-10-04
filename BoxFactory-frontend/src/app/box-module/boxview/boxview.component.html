@@ -23,10 +23,10 @@
                     </ion-row>
                     <ion-row>
                         <ion-col size="1">{{box.id}}</ion-col>
-                        <ion-col size="1">{{box.width}} cm</ion-col>
-                        <ion-col size="1">{{box.height}} cm</ion-col>
-                        <ion-col size="1">{{box.length}} cm</ion-col>
-                        <ion-col size="1">{{box.weight}} g</ion-col>
+                        <ion-col size="1">{{box.width | number}} cm</ion-col>
+                        <ion-col size="1">{{box.height | number}} cm</ion-col>
+                        <ion-col size="1">{{box.length | number}} cm</ion-col>
+                        <ion-col size="1">{{box.weight | number}} g</ion-col>
                         <ion-col size="1">{{box.color | boxColorDisplayName}}</ion-col>
                         <ion-col size="2">{{box.createdAt | date: 'dd/MM/yyyy - HH:mm'}} (UTC)</ion-col>
                     </ion-row>
@@ -39,11 +39,11 @@
                 <ion-grid id="extended">
                     <ion-row>
                         <ion-col size="6">Volume</ion-col>
-                        <ion-col size="6">{{box.width * box.height * box.length}} cm<sup>3</sup></ion-col>
+                        <ion-col size="6">{{box.getVolume() | number}} cm<sup>3</sup></ion-col>
                     </ion-row>
                     <ion-row>
                         <ion-col size="6">Surface Area</ion-col>
-                        <ion-col size="6">{{2 * box.length * box.width + 2 * box.length * box.height + 2 * box.width * box.height}} cm<sup>2</sup></ion-col>
+                        <ion-col size="6">{{box.getSurfaceArea() | number}} cm<sup>2</sup></ion-col>
                     </ion-row>
                 </ion-grid>
             </div>

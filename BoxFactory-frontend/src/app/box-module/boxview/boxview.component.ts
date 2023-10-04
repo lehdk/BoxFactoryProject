@@ -28,10 +28,9 @@ export class BoxviewComponent implements OnInit, OnDestroy {
     
     async ngOnInit() {
         let $boxRequest = this.boxService.getBox(this.id).subscribe(data => {
-            this.box = data;
+            this.box = Object.assign(new Box(), data);
         });
         this.subscriptions.push($boxRequest);
-    
     }
 
     ngOnDestroy(): void {
@@ -42,5 +41,6 @@ export class BoxviewComponent implements OnInit, OnDestroy {
         
     goBack() {
         this.router.navigate(["boxes"]);
+        console.log(typeof this.box);
     }
 }

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
-export type Box = {
+export class Box {
   id: number;
   width: number;
   height: number;
@@ -8,6 +8,28 @@ export type Box = {
   weight: number;
   color: BoxColor;
   createdAt: Date;
+
+  constructor() {
+    this.id = -1;
+    this.width = -1;
+    this.height = -1;
+    this.length = -1;
+    this.weight = -1;
+    this.color = BoxColor.Red;
+    this.createdAt = new Date();
+  }
+
+  getVolume(): number {
+    return this.width * this.height * this.length;
+  }
+
+  getSurfaceArea(): number {
+    return(
+        2 * this.length * this.width +
+        2 * this.length * this.height +
+        2 * this.width * this.height
+    );
+  }
 }
 
 export enum BoxColor {
