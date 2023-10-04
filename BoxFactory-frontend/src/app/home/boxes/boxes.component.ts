@@ -30,9 +30,16 @@ export class BoxesComponent implements OnInit {
 	}
 
     async update(id: number) {
+        const boxToEdit: Box | undefined = this.boxes.find(f => f.id === id);
+
+        if(!boxToEdit) {
+            console.log("Could not edit the box since it was not found!");
+            return;
+        }
+
 		const modal = await this.modalController.create({
 			component: UpdateboxComponent,
-			componentProps: { currentId: id },
+			componentProps: { box: boxToEdit},
 		});
 
 		modal.onDidDismiss().then(data => {
@@ -45,7 +52,7 @@ export class BoxesComponent implements OnInit {
 	async openAddModal(): Promise<void> {
 		const modal = await this.modalController.create({
 			component: UpdateboxComponent,
-			componentProps: { currentId: null },
+			componentProps: { box: null },
 		});
 
 		modal.onDidDismiss().then(data => {

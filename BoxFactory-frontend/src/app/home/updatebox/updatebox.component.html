@@ -1,6 +1,6 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-title class="ion-text-center" *ngIf="!currentId; else edit">Add new box</ion-title>
+		<ion-title class="ion-text-center" *ngIf="!box; else edit">Add new box</ion-title>
         <ng-template #edit>
             <ion-title class="ion-text-center">Update box</ion-title>
         </ng-template>
