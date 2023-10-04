@@ -11,39 +11,39 @@
     <form id="inputForm" [formGroup]="inputForm" (ngSubmit)="submitForm()">
         <ion-grid>
             <ion-row>
-                <ion-col class="label" size="2">
-                    <label for="width">Width</label>
+                <ion-col class="label" size="3">
+                    <label for="width">Width <i>(cm)</i></label>
                 </ion-col>
                 <ion-col>
                     <input type="text" name="width" formControlName="width" required pattern="[0-9]*" (input)="forceIntegers($event)"/>
                 </ion-col>
             </ion-row>
             <ion-row>
-                <ion-col class="label" size="2">
-                    <label for="height">Height</label>
+                <ion-col class="label" size="3">
+                    <label for="height">Height <i>(cm)</i></label>
                 </ion-col>
                 <ion-col>
                     <input type="text" name="height" formControlName="height" required pattern="[0-9]*" (input)="forceIntegers($event)"/>
                 </ion-col>
             </ion-row>
             <ion-row>
-                <ion-col class="label" size="2">
-                    <label for="length">Length</label>
+                <ion-col class="label" size="3">
+                    <label for="length">Length <i>(cm)</i></label>
                 </ion-col>
                 <ion-col>
                     <input type="text" name="length" formControlName="length" required pattern="[0-9]*" (input)="forceIntegers($event)"/>
                 </ion-col>
             </ion-row>
             <ion-row>
-                <ion-col class="label" size="2">
-                    <label for="weight">Weight</label>
+                <ion-col class="label" size="3">
+                    <label for="weight">Weight <i>(g)</i></label>
                 </ion-col>
                 <ion-col>
                     <input type="text" name="weight" formControlName="weight" required pattern="[0-9]*" (input)="forceIntegers($event)"/>
                 </ion-col>
             </ion-row>
             <ion-row>
-                <ion-col class="label" size="2">
+                <ion-col class="label" size="3">
                     <label for="color">Color</label>
                 </ion-col>
                 <ion-col>

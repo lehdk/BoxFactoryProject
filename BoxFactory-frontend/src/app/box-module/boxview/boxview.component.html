@@ -7,32 +7,52 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <div *ngIf="box; else noData">
-        <ion-grid>
-            <ion-row>
-                <ion-col>Id</ion-col>
-                <ion-col>Width</ion-col>
-                <ion-col>Height</ion-col>
-                <ion-col>Length</ion-col>
-                <ion-col>Weight</ion-col>
-                <ion-col>Color</ion-col>
-                <ion-col>Created At</ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>{{box.id}}</ion-col>
-                <ion-col>{{box.width}}</ion-col>
-                <ion-col>{{box.height}}</ion-col>
-                <ion-col>{{box.length}}</ion-col>
-                <ion-col>{{box.weight}}</ion-col>
-                <ion-col>{{box.color | boxColorDisplayName}}</ion-col>
-                <ion-col>{{box.createdAt | date: 'dd/MM/yyyy - HH:mm'}} (UTC)</ion-col>
-            </ion-row>
-        </ion-grid>
-    </div>
-    <ng-template #noData >
-        <span *ngIf="box === null; else loading">No box found with the id {{id}}</span>
-        <ng-template #loading>
-            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    <div class="content"> 
+        <h2>Box properties</h2>
+        <div *ngIf="box; else noData">
+            <div>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="1">Id</ion-col>
+                        <ion-col size="1">Width</ion-col>
+                        <ion-col size="1">Height</ion-col>
+                        <ion-col size="1">Length</ion-col>
+                        <ion-col size="1">Weight</ion-col>
+                        <ion-col size="1">Color</ion-col>
+                        <ion-col size="2">Created At</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="1">{{box.id}}</ion-col>
+                        <ion-col size="1">{{box.width}} cm</ion-col>
+                        <ion-col size="1">{{box.height}} cm</ion-col>
+                        <ion-col size="1">{{box.length}} cm</ion-col>
+                        <ion-col size="1">{{box.weight}} g</ion-col>
+                        <ion-col size="1">{{box.color | boxColorDisplayName}}</ion-col>
+                        <ion-col size="2">{{box.createdAt | date: 'dd/MM/yyyy - HH:mm'}} (UTC)</ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+            <div>
+                <h2>
+                    Extended information
+                </h2>
+                <ion-grid id="extended">
+                    <ion-row>
+                        <ion-col size="6">Volume</ion-col>
+                        <ion-col size="6">{{box.width * box.height * box.length}} cm<sup>3</sup></ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6">Surface Area</ion-col>
+                        <ion-col size="6">{{2 * box.length * box.width + 2 * box.length * box.height + 2 * box.width * box.height}} cm<sup>2</sup></ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </div>
+        <ng-template #noData >
+            <span *ngIf="box === null; else loading">No box found with the id {{id}}</span>
+            <ng-template #loading>
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </ng-template>
         </ng-template>
-    </ng-template>
+    </div>
 </ion-content>

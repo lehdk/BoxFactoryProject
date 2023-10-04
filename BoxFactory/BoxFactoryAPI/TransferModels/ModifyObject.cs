@@ -6,21 +6,21 @@ namespace BoxFactoryAPI.TransferModels;
 public sealed class ModifyObject
 {
     /// <summary>
-    /// The width of the box in milimeters
+    /// The width of the box in cm
     /// </summary>
     [Range(0, 2000)]
     [Required]
     public short Width { get; set; }
 
     /// <summary>
-    /// The height of the box in milimeters
+    /// The height of the box in cm
     /// </summary>
     [Range(0, 2000)]
     [Required]
     public short Height { get; set; }
 
     /// <summary>
-    /// The length of the box in milimeters
+    /// The length of the box in cm
     /// </summary>
     [Range(0, 2000)]
     [Required]

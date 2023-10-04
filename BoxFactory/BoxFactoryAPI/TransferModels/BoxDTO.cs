@@ -8,19 +8,19 @@ public sealed class BoxDTO
     public int Id { get; set; }
 
     /// <summary>
-    /// The width of the box in milimeters
+    /// The width of the box in cm
     /// </summary>
     [Range(0, 2000)]
     public short Width { get; set; }
 
     /// <summary>
-    /// The height of the box in milimeters
+    /// The height of the box in cm
     /// </summary>
     [Range(0, 2000)]
     public short Height { get; set; }
 
     /// <summary>
-    /// The length of the box in milimeters
+    /// The length of the box in cm
     /// </summary>
     [Range(0, 2000)]
     public short Length { get; set; }
