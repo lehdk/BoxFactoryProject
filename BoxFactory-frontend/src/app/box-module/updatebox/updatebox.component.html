@@ -15,7 +15,7 @@
                     <label for="width">Width</label>
                 </ion-col>
                 <ion-col>
-                    <input type="text" name="width" formControlName="width" />
+                    <input type="text" name="width" formControlName="width" required pattern="[0-9]*" (input)="forceIntegers($event)"/>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -23,7 +23,7 @@
                     <label for="height">Height</label>
                 </ion-col>
                 <ion-col>
-                    <input type="text" name="height" formControlName="height" />
+                    <input type="text" name="height" formControlName="height" required pattern="[0-9]*" (input)="forceIntegers($event)"/>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -31,7 +31,7 @@
                     <label for="length">Length</label>
                 </ion-col>
                 <ion-col>
-                    <input type="text" name="length" formControlName="length" />
+                    <input type="text" name="length" formControlName="length" required pattern="[0-9]*" (input)="forceIntegers($event)"/>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -39,7 +39,7 @@
                     <label for="weight">Weight</label>
                 </ion-col>
                 <ion-col>
-                    <input type="text" name="weight" formControlName="weight" />
+                    <input type="text" name="weight" formControlName="weight" required pattern="[0-9]*" (input)="forceIntegers($event)"/>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -47,7 +47,7 @@
                     <label for="color">Color</label>
                 </ion-col>
                 <ion-col>
-                    <select name="color" formControlName="color">
+                    <select name="color" formControlName="color" required>
                         <option *ngFor="let color of boxColorValues" [value]="color">{{color}}</option>
                     </select>
                 </ion-col>
@@ -57,7 +57,7 @@
         <ion-grid>
             <ion-row>
                 <ion-col>
-                    <ion-button color="success" type="submit">Save</ion-button>
+                    <ion-button color="success" type="submit" [disabled]="inputForm.invalid">Save</ion-button>
                 </ion-col>
                 <ion-col size="1"></ion-col>
                 <ion-col>

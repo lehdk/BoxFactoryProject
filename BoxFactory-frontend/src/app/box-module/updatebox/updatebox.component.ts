@@ -61,4 +61,11 @@ export class UpdateboxComponent implements OnInit {
     cancel() {
         this.modalController.dismiss(null);
     }
+
+    forceIntegers(event: any) {
+        const inputValue = event.target!.value;
+        const numericValue = inputValue.replace(/[^0-9]/g, '');
+
+        event.target.value = numericValue;
+    }
 }
