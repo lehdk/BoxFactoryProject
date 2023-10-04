@@ -2,6 +2,14 @@ main {
     height: 100%;
 }
 
+.titleRow {
+    background-color: #0c0c0c;
+}
+
+.boxRow:nth-child(even) {
+    background-color: #202020;
+}
+
 .boxRow:hover {
     background-color: #383838;
 }
