@@ -1,7 +1,7 @@
 <main>
 	<ion-grid class="boxGrid">
 		<ion-row class="titleRow">
-			<ion-col>Id</ion-col>
+			<ion-col><b>Id</b></ion-col>
 			<ion-col>Width</ion-col>
 			<ion-col>Height</ion-col>
 			<ion-col>Length</ion-col>
@@ -10,7 +10,7 @@
 			<ion-col></ion-col>
 		</ion-row>
 		<ion-row class="boxRow" *ngFor="let box of boxes">
-			<ion-col>{{box.id}}</ion-col>
+			<ion-col><b>{{box.id}}</b></ion-col>
 			<ion-col>{{box.width}}</ion-col>
 			<ion-col>{{box.height}}</ion-col>
 			<ion-col>{{box.length}}</ion-col>
