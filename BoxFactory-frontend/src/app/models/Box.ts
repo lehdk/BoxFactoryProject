@@ -1,4 +1,4 @@
-export type Box={
+export type Box = {
   id: number;
   width: number;
   height: number;
@@ -8,7 +8,7 @@ export type Box={
   createdAt: Date;
 }
 
-export enum BoxColor{
+export enum BoxColor {
   Red = 0,
   Blue = 1,
   Green = 2,

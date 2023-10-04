@@ -1,0 +1,34 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title class="ion-text-center" *ngIf="newMode === true">Create new box</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<form [formGroup]="inputForm" (ngSubmit)="submitForm()">
+		<p>
+			<label for="width">Width</label>
+			<input type="text" name="width" formControlName="width" />
+		</p>
+		<p>
+			<label for="height">Height</label>
+			<input type="text" name="height" formControlName="height" />
+		</p>
+		<p>
+			<label for="length">Length</label>
+			<input type="text" name="length" formControlName="length" />
+		</p>
+		<p>
+			<label for="weight">Weight</label>
+			<input type="text" name="weight" formControlName="weight" />
+		</p>
+		<p>
+			<label for="color">Color</label>
+			<select name="color" formControlName="color">
+				<option *ngFor="let color of boxColorValues" [value]="color">{{color}}</option>
+			</select>
+		</p>
+
+		<ion-button type="submit">Submit</ion-button>
+	</form>
+</ion-content>

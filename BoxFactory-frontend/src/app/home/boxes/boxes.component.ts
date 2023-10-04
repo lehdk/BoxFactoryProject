@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Box } from 'src/app/models/Box';
 import { BoxService } from 'src/app/services/box.service';
+import { UpdateboxComponent } from '../updatebox/updatebox.component';
+import { ModalController } from '@ionic/angular';
+import { ModifyBox } from 'src/app/models/requestModels/ModifyBox';
 
 @Component({
 	selector: 'app-boxes',
@@ -11,7 +14,7 @@ export class BoxesComponent implements OnInit {
 
 	boxes: Box[] = [];
 
-	constructor(private boxservice: BoxService) { }
+	constructor(private boxservice: BoxService, private modalController: ModalController) { }
 
 	ngOnInit(): void {
 		this.boxservice.loadAllBoxes();
@@ -23,5 +26,26 @@ export class BoxesComponent implements OnInit {
 
 	delete(id: number) {
 		this.boxservice.delete(id);
+	}
+
+	async openAddModal(): Promise<void> {
+		const modal = await this.modalController.create({
+			component: UpdateboxComponent,
+			componentProps: { newMode: true },
+		});
+
+		modal.onDidDismiss().then(data => {
+			debugger
+			const modifyObject: ModifyBox | undefined = data.data;
+
+			if(!modifyObject) {
+				console.error("Did not return modify object!");
+				return;
+			}
+
+			this.boxservice.create(modifyObject);
+		});
+
+		await modal.present();
 	}
 }
