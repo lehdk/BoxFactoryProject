@@ -11,10 +11,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors();
+
 builder.Services.UseBoxFactoryServices();
 builder.Services.UseBoxFactoryInfrastructure(builder.Configuration);
 
 var app = builder.Build();
+
+app.UseCors(x =>
+{
+    x.AllowAnyHeader();
+    x.AllowAnyMethod();
+    x.SetIsOriginAllowed(origin => true);
+    x.AllowCredentials();
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
