@@ -28,14 +28,26 @@ export class BoxesComponent implements OnInit {
 		this.boxservice.delete(id);
 	}
 
-	async openAddModal(): Promise<void> {
+    async update(id: number) {
 		const modal = await this.modalController.create({
 			component: UpdateboxComponent,
-			componentProps: { newMode: true },
+			componentProps: { currentId: id },
 		});
 
 		modal.onDidDismiss().then(data => {
-			debugger
+			
+		});
+
+		await modal.present();
+    }
+
+	async openAddModal(): Promise<void> {
+		const modal = await this.modalController.create({
+			component: UpdateboxComponent,
+			componentProps: { currentId: null },
+		});
+
+		modal.onDidDismiss().then(data => {
 			const modifyObject: ModifyBox | undefined = data.data;
 
 			if(!modifyObject) {

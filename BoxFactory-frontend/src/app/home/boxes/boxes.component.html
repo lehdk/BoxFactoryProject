@@ -15,7 +15,7 @@
 			<ion-col>{{box.height}}</ion-col>
 			<ion-col>{{box.length}}</ion-col>
 			<ion-col><ion-button color="danger" (click)="delete(box.id)">Delete</ion-button></ion-col>
-			<ion-col><ion-button color="primary">Update</ion-button></ion-col>
+			<ion-col><ion-button color="primary" (click)="update(box.id)">Update</ion-button></ion-col>
 		</ion-row>
 	</ion-grid>
 	<ion-button color="success" (click)="openAddModal()">Add</ion-button>
