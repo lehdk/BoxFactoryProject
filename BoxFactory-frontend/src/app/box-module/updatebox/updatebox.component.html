@@ -1,37 +1,69 @@
 <ion-header>
-	<ion-toolbar>
-		<ion-title class="ion-text-center" *ngIf="!box; else edit">Add new box</ion-title>
+    <ion-toolbar>
+        <ion-title class="ion-text-center" *ngIf="!box; else edit">Add new box</ion-title>
         <ng-template #edit>
             <ion-title class="ion-text-center">Update box</ion-title>
         </ng-template>
-	</ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-	<form [formGroup]="inputForm" (ngSubmit)="submitForm()">
-		<p>
-			<label for="width">Width</label>
-			<input type="text" name="width" formControlName="width" />
-		</p>
-		<p>
-			<label for="height">Height</label>
-			<input type="text" name="height" formControlName="height" />
-		</p>
-		<p>
-			<label for="length">Length</label>
-			<input type="text" name="length" formControlName="length" />
-		</p>
-		<p>
-			<label for="weight">Weight</label>
-			<input type="text" name="weight" formControlName="weight" />
-		</p>
-		<p>
-			<label for="color">Color</label>
-			<select name="color" formControlName="color">
-				<option *ngFor="let color of boxColorValues" [value]="color">{{color}}</option>
-			</select>
-		</p>
-
-		<ion-button type="submit">Submit</ion-button>
-	</form>
+    <form id="inputForm" [formGroup]="inputForm" (ngSubmit)="submitForm()">
+        <ion-grid>
+            <ion-row>
+                <ion-col class="label" size="2">
+                    <label for="width">Width</label>
+                </ion-col>
+                <ion-col>
+                    <input type="text" name="width" formControlName="width" />
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="label" size="2">
+                    <label for="height">Height</label>
+                </ion-col>
+                <ion-col>
+                    <input type="text" name="height" formControlName="height" />
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="label" size="2">
+                    <label for="length">Length</label>
+                </ion-col>
+                <ion-col>
+                    <input type="text" name="length" formControlName="length" />
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="label" size="2">
+                    <label for="weight">Weight</label>
+                </ion-col>
+                <ion-col>
+                    <input type="text" name="weight" formControlName="weight" />
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="label" size="2">
+                    <label for="color">Color</label>
+                </ion-col>
+                <ion-col>
+                    <select name="color" formControlName="color">
+                        <option *ngFor="let color of boxColorValues" [value]="color">{{color}}</option>
+                    </select>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+            
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-button color="success" type="submit">Save</ion-button>
+                </ion-col>
+                <ion-col size="1"></ion-col>
+                <ion-col>
+                    <ion-button color="danger" (click)="cancel()">Cancel</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
 </ion-content>

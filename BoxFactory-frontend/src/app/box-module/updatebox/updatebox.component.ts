@@ -57,4 +57,8 @@ export class UpdateboxComponent implements OnInit {
 
         this.modalController.dismiss(updateObject);
     }
+
+    cancel() {
+        this.modalController.dismiss(null);
+    }
 }
