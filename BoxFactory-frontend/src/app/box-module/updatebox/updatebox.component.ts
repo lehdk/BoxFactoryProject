@@ -63,7 +63,7 @@ export class UpdateboxComponent implements OnInit {
     }
 
     forceIntegers(event: any) {
-        const inputValue = event.target!.value;
+        const inputValue = event.target.value;
         const numericValue = inputValue.replace(/[^0-9]/g, '');
 
         event.target.value = numericValue;
