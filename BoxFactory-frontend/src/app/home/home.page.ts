@@ -7,15 +7,7 @@ import {Box} from "../models/Box";
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
+export class HomePage {
 
-  boxes : Box[] = []
-  constructor(private boxservice : BoxService) {}
-
-  ngOnInit(): void {
-    this.boxservice.getAllBoxes().subscribe(boxes =>{
-      this.boxes=boxes;
-    })
-  }
-
+  constructor() {}
 }

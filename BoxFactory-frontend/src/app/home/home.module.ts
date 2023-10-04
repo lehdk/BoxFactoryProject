@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import {HttpClientModule} from "@angular/common/http";
+import { BoxesComponent } from './boxes/boxes.component';
 
 
 @NgModule({
@@ -16,6 +17,6 @@ import {HttpClientModule} from "@angular/common/http";
     HomePageRoutingModule,
     HttpClientModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, BoxesComponent]
 })
 export class HomePageModule {}
