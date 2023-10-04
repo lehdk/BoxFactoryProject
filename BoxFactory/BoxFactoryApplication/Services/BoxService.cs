@@ -1,4 +1,5 @@
-﻿using BoxFactoryApplication.Services.Interfaces;
+﻿using BoxFactoryAPI.Exceptions;
+using BoxFactoryApplication.Services.Interfaces;
 using BoxFactoryDomain.Entities;
 using BoxFactoryInfrastructure.Repositories.Interfaces;
 
@@ -25,11 +26,17 @@ public sealed class BoxService : IBoxService
 
     public async Task<Box?> Create(short width, short height, short length, int weight, BoxColor color)
     {
+        if (!Enum.IsDefined(typeof(BoxColor), color))
+            throw new InvalidColorException("The color was not found");
+
         return await _boxRepository.Create(width, height, length, weight, color);
     }
 
     public async Task<Box?> UpdateBox(int id, short width, short height, short length, int weight, BoxColor color)
     {
+        if (!Enum.IsDefined(typeof(BoxColor), color))
+            throw new InvalidColorException("The color was not found");
+
         return await _boxRepository.UpdateBox(id, width, height, length, weight, color);
     }
     public async Task<bool> DeleteBoxById(int id)
