@@ -56,4 +56,31 @@ export class BoxService {
             this.boxes.next(boxes);
 		});
 	}
+
+    update(id: number, object: ModifyBox): void {
+        
+        let response = this.http.patch<Box | null>(`${this.url}/${id}`, object);
+
+        response.subscribe(result => {
+            if(!response) {
+                return;
+            }
+
+            let boxes: Box[] = this.boxes.getValue();
+
+            const box: Box | undefined = boxes.find(f => f.id === id);
+            
+            if(!box){
+                return;
+            }
+
+            box.width = object.width;
+            box.height = object.height;
+            box.length = object.length;
+            box.weight = object.weight;
+            box.color = object.color;
+
+            this.boxes.next(boxes);
+        });
+    }
 }

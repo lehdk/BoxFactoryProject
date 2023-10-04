@@ -43,7 +43,14 @@ export class BoxesComponent implements OnInit {
 		});
 
 		modal.onDidDismiss().then(data => {
-			
+			const modifyObject: ModifyBox | undefined = data.data;
+
+            if(!modifyObject) {
+                console.log("Did not return modify object");
+                return;
+            }
+
+            this.boxservice.update(id, modifyObject);
 		});
 
 		await modal.present();
@@ -59,7 +66,7 @@ export class BoxesComponent implements OnInit {
 			const modifyObject: ModifyBox | undefined = data.data;
 
 			if(!modifyObject) {
-				console.error("Did not return modify object!");
+				console.log("Did not return modify object");
 				return;
 			}
 
