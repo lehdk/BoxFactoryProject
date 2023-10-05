@@ -11,6 +11,7 @@ import { ModifyBox } from 'src/app/models/requestModels/ModifyBox';
 })
 export class UpdateboxComponent implements OnInit {
 
+    //If this is set to null, it will be in create mode, and if there is a box it will be in update mode
     @Input() box: Box | null = null;
 
     public boxColorValues = Object.values(BoxColor).filter(value => typeof value !== 'number');
