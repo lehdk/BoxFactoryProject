@@ -9,6 +9,7 @@ public static class BoxFactoryApplicationExtensions
     public static IServiceCollection UseBoxFactoryServices(this IServiceCollection services)
     {
         services.AddTransient<IBoxService, BoxService>();
+        services.AddTransient<IBoxOrderService, BoxOrderService>();
 
         return services;
     }

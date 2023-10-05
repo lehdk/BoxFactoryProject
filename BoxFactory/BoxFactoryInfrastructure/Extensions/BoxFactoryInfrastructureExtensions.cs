@@ -17,6 +17,7 @@ public static class BoxFactoryInfrastructureExtensions
         services.TryAddSingleton(dbConnectionStringObject);
 
         services.AddTransient<IBoxRepository, BoxRepository>();
+        services.AddTransient<IBoxOrderRepository, BoxOrderRepository>();
 
         return services;
     }
