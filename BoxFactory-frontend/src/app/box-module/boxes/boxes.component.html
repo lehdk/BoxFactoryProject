@@ -5,14 +5,16 @@
 			<ion-col size="2">Width</ion-col>
 			<ion-col size="2">Height</ion-col>
 			<ion-col size="2">Length</ion-col>
-			<ion-col size="4">Actions</ion-col>
+			<ion-col size="2">Created at</ion-col>
+			<ion-col size="3">Actions</ion-col>
 		</ion-row>
 		<ion-row class="boxRow" *ngFor="let box of boxes">
 			<ion-col size="1"><b>{{box.id}}</b></ion-col>
 			<ion-col size="2">{{box.width}}</ion-col>
 			<ion-col size="2">{{box.height}}</ion-col>
 			<ion-col size="2">{{box.length}}</ion-col>
-        <ion-col size="4">
+			<ion-col size="2">{{box.createdAt | date: 'dd/MM/yyyy - HH:mm'}}</ion-col>
+        <ion-col size="3">
             <ion-col size="4"><ion-button color="danger" (click)="delete(box.id)">Delete</ion-button></ion-col>
             <ion-col size="4"><ion-button color="primary" (click)="update(box.id)">Update</ion-button></ion-col>
             <ion-col size="4"><ion-button color="medium" (click)="showBox(box.id)">View</ion-button></ion-col>
