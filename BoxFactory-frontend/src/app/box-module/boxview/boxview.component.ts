@@ -41,6 +41,5 @@ export class BoxviewComponent implements OnInit, OnDestroy {
         
     goBack() {
         this.router.navigate(["boxes"]);
-        console.log(typeof this.box);
     }
 }
