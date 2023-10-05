@@ -85,16 +85,16 @@ export class BoxesComponent implements OnInit {
 
     search(event: any) {
         if (event.target.value.toString().length == 0) {
-          this.boxes = this.boxservice.boxes.getValue()
-          return;
+            this.boxes = this.boxservice.boxes.getValue();
+            return;
         }
         this.boxes = this.boxservice.boxes.getValue().filter(f => {
-          if (f.id + "" == event.target.value.toString()) return true;
-          if (f.width + "" == event.target.value.toString()) return true;
-          if (f.height + "" == event.target.value.toString()) return true;
-          if (f.length + "" == event.target.value.toString()) return true;
-          if (f.weight + "" == event.target.value.toString()) return true;
-          return false;
+            if (f.id + "" == event.target.value.toString()) return true;
+            if (f.width + "" == event.target.value.toString()) return true;
+            if (f.height + "" == event.target.value.toString()) return true;
+            if (f.length + "" == event.target.value.toString()) return true;
+            if (f.weight + "" == event.target.value.toString()) return true;
+            return false;
         })
     }
 }
