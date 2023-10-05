@@ -1,8 +1,12 @@
 <ion-header>
     <ion-toolbar>
         <ion-row style="margin-left: 10px;">
-            <span style="font-size: 16px; cursor: pointer;" (click)="goBack()"><i>Back</i></span>
-            <ion-title>Box: <span>{{id}}</span></ion-title>
+            <ion-col size="auto">
+                <span style="font-size: 22px; cursor: pointer;" (click)="goBack()" id="back"><ion-icon name="arrow-back-outline"></ion-icon></span>
+            </ion-col>
+            <ion-col>
+                <ion-title>Box: <span>{{id}}</span></ion-title>
+            </ion-col>
         </ion-row>
     </ion-toolbar>
 </ion-header>
