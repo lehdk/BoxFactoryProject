@@ -7,6 +7,7 @@ export class Box {
   length: number;
   weight: number;
   color: BoxColor;
+  price: number;
   createdAt: Date;
 
   constructor() {
@@ -16,6 +17,7 @@ export class Box {
     this.length = -1;
     this.weight = -1;
     this.color = BoxColor.Red;
+    this.price = -1;
     this.createdAt = new Date();
   }
 

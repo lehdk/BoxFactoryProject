@@ -31,6 +31,7 @@ SELECT [Id]
       ,[Length]
       ,[Weight]
       ,[Color]
+      ,[Price]
       ,[CreatedAt]
   FROM [BoxFactory].[dbo].[Box]";
 
@@ -48,7 +49,8 @@ SELECT [Id]
                         Length = reader.GetInt16(3),
                         Weight = reader.GetInt32(4),
                         Color = (BoxColor)reader.GetByte(5),
-                        CreatedAt = reader.GetDateTime(6),
+                        Price = reader.GetDouble(6),
+                        CreatedAt = reader.GetDateTime(7),
                     });
                 }
             }
@@ -74,6 +76,7 @@ SELECT [Id]
       ,[Length]
       ,[Weight]
       ,[Color]
+      ,[Price]
       ,[CreatedAt]
 FROM [BoxFactory].[dbo].[Box]
 WHERE [Id] = @Id";
@@ -94,7 +97,8 @@ WHERE [Id] = @Id";
                         Length = reader.GetInt16(3),
                         Weight = reader.GetInt32(4),
                         Color = (BoxColor)reader.GetByte(5),
-                        CreatedAt = reader.GetDateTime(6),
+                        Price = reader.GetDouble(6),
+                        CreatedAt = reader.GetDateTime(7),
                     };
                 }
             }
@@ -105,7 +109,7 @@ WHERE [Id] = @Id";
         return result;
     }
 
-    public async Task<Box?> UpdateBox(int id, short width, short height, short length, int weight, BoxColor color)
+    public async Task<Box?> UpdateBox(int id, short width, short height, short length, int weight, BoxColor color, double price)
     {
         Box? box = await GetBoxById(id);
 
@@ -123,7 +127,8 @@ SET
     [Height] = @Height,
     [Length] = @Length,
     [Weight] = @Weight,
-    [Color] = @Color
+    [Color] = @Color,
+    [Price] = @Price
 WHERE [Id] = @Id
 ";
 
@@ -135,6 +140,7 @@ WHERE [Id] = @Id
                 command.Parameters.AddWithValue("@Length", length);
                 command.Parameters.AddWithValue("@Weight", weight);
                 command.Parameters.AddWithValue("@Color", color);
+                command.Parameters.AddWithValue("@Price", price);
 
                 var rowsAffected = await command.ExecuteNonQueryAsync();
 
@@ -146,6 +152,7 @@ WHERE [Id] = @Id
                     box.Length = length;
                     box.Weight = weight;
                     box.Color = color;
+                    box.Price = price;
                 }
             }
 

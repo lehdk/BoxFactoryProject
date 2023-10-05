@@ -23,6 +23,7 @@
                         <ion-col size="1">Length</ion-col>
                         <ion-col size="1">Weight</ion-col>
                         <ion-col size="1">Color</ion-col>
+                        <ion-col size="1">Price</ion-col>
                         <ion-col size="2">Created At</ion-col>
                     </ion-row>
                     <ion-row>
@@ -32,6 +33,7 @@
                         <ion-col size="1">{{box.length | number}} cm</ion-col>
                         <ion-col size="1">{{box.weight | number}} g</ion-col>
                         <ion-col size="1">{{box.color | boxColorDisplayName}}</ion-col>
+                        <ion-col size="1">{{box.price | number}} dkk</ion-col>
                         <ion-col size="2">{{box.createdAt | date: 'dd/MM/yyyy - HH:mm'}} (UTC)</ion-col>
                     </ion-row>
                 </ion-grid>

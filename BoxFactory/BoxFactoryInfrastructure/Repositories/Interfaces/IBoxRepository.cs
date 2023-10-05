@@ -10,6 +10,6 @@ public interface IBoxRepository
 
     public Task<bool> DeleteBoxById(int id);
 
-    public Task<Box?> UpdateBox(int id, short width, short height, short length, int weight, BoxColor color);
+    public Task<Box?> UpdateBox(int id, short width, short height, short length, int weight, BoxColor color, double price);
     public Task<Box?> Create(short width, short height, short length, int weight, BoxColor color);
 }

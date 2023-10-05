@@ -52,6 +52,14 @@
                     </select>
                 </ion-col>
             </ion-row>
+            <ion-row>
+                <ion-col class="label" size="3">
+                    <label for="color">Price</label>
+                </ion-col>
+                <ion-col>
+                    <input type="text" name="price" formControlName="price" required pattern="[0-9]*." (input)="forceFloat($event)"/>
+                </ion-col>
+            </ion-row>
         </ion-grid>
             
         <ion-grid>

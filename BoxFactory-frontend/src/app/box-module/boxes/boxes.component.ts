@@ -5,7 +5,6 @@ import { UpdateboxComponent } from '../updatebox/updatebox.component';
 import { ModalController } from '@ionic/angular';
 import { ModifyBox } from 'src/app/models/requestModels/ModifyBox';
 import { Router } from '@angular/router';
-import { TypeModifier } from '@angular/compiler';
 
 @Component({
 	selector: 'app-boxes',

@@ -6,4 +6,5 @@ export type ModifyBox = {
     length: number;
     weight: number;
     color: BoxColor;
+    price: number;
 }

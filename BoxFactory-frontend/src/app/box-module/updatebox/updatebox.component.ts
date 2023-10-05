@@ -25,6 +25,7 @@ export class UpdateboxComponent implements OnInit {
             length: new FormControl(),
             weight: new FormControl(),
             color: new FormControl(),
+            price: new FormControl(),
         });
     }
 
@@ -40,6 +41,7 @@ export class UpdateboxComponent implements OnInit {
         this.inputForm.get("length")!.setValue(this.box.length);
         this.inputForm.get("weight")!.setValue(this.box.weight);
         this.inputForm.get("color")!.setValue(BoxColor[this.box.color]);
+        this.inputForm.get("price")!.setValue(this.box.price);
     }
 
     submitForm() {
@@ -53,7 +55,8 @@ export class UpdateboxComponent implements OnInit {
             height: this.inputForm.get("height")!.value,
             length: this.inputForm.get("length")!.value,
             weight: this.inputForm.get("weight")!.value,
-            color: BoxColor[this.inputForm.get("color")!.value as keyof typeof BoxColor]
+            color: BoxColor[this.inputForm.get("color")!.value as keyof typeof BoxColor],
+            price: this.inputForm.get("price")!.value,
         };
 
         this.modalController.dismiss(updateObject);
@@ -68,5 +71,13 @@ export class UpdateboxComponent implements OnInit {
         const numericValue = inputValue.replace(/[^0-9]/g, '');
 
         event.target.value = numericValue;
+    }
+
+    forceFloat(event: any) {
+        // TODO: Make this only take 0-9 and one .
+        /*const inputValue = event.target.value;
+        const numericValue = inputValue.replace(/[^0-9]/g, '');
+
+        event.target.value = numericValue;*/
     }
 }

@@ -32,12 +32,12 @@ public sealed class BoxService : IBoxService
         return await _boxRepository.Create(width, height, length, weight, color);
     }
 
-    public async Task<Box?> UpdateBox(int id, short width, short height, short length, int weight, BoxColor color)
+    public async Task<Box?> UpdateBox(int id, short width, short height, short length, int weight, BoxColor color, double price)
     {
         if (!Enum.IsDefined(typeof(BoxColor), color))
             throw new InvalidColorException("The color was not found");
 
-        return await _boxRepository.UpdateBox(id, width, height, length, weight, color);
+        return await _boxRepository.UpdateBox(id, width, height, length, weight, color, price);
     }
     public async Task<bool> DeleteBoxById(int id)
     {

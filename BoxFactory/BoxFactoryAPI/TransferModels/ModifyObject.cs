@@ -37,4 +37,11 @@ public sealed class ModifyObject
     /// </summary>
     [Required]
     public BoxColor Color { get; set; }
+
+    /// <summary>
+    /// The price of the box in DKK
+    /// </summary>
+    [Required]
+    public double Price { get; set; }
+
 }

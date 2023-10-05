@@ -36,6 +36,11 @@ public sealed class BoxDTO
     public BoxColor Color { get; set; }
 
     /// <summary>
+    /// The price of the box in DKK
+    /// </summary>
+    public double Price { get; set; }
+
+    /// <summary>
     /// The date and time when the box was created
     /// </summary>
     public DateTime CreatedAt { get; set; }

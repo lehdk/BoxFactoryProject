@@ -20,6 +20,7 @@ public static class DtoParsers
             Length = box.Length,
             Weight = box.Weight,
             Color = box.Color,
+            Price = box.Price,
             CreatedAt = box.CreatedAt
         };
     }
