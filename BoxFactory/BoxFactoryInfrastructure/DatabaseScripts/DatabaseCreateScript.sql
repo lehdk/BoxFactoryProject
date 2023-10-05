@@ -24,9 +24,13 @@ CREATE TABLE [Orders] (
 
 CREATE TABLE [OrderLines] (
     [Id] INT IDENTITY(1, 1) PRIMARY KEY,
-    [OrderId] INT FOREIGN KEY REFERENCES [Orders]([Id]),
+    [OrderId] INT FOREIGN KEY REFERENCES [Orders]([Id]) ON DELETE CASCADE,
+    [BoxId] INT FOREIGN KEY REFERENCES [Box]([Id]),
     [Amount] INT NOT NULL,
     [Price] FLOAT NOT NULL
 );
 
 INSERT INTO [Box] ([Width], [Height], [Length], [Weight], [Color], [Price]) VALUES (42, 420, 69, 7, 9, 199);
+
+INSERT INTO [Orders] ([Buyer]) VALUES ('Test person');
+INSERT INTO [OrderLines] ([OrderId], [BoxId], [Amount], [Price]) VALUES (1, 1, 3, 199)
