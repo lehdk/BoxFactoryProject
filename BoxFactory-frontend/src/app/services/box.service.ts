@@ -79,6 +79,7 @@ export class BoxService {
             box.length = object.length;
             box.weight = object.weight;
             box.color = object.color;
+            box.price = object.price;
 
             this.boxes.next(boxes);
         });
