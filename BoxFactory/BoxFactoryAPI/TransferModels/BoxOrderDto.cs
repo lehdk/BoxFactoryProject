@@ -15,8 +15,7 @@ public sealed class BoxOrderDto
     [Required]
     public DateTime OrderedAt { get; set; }
 
-    [Required]
-    public bool IsShipped = false;
+    public DateTime? ShippedAt { get; set; } = null;
 
     [Required]
     public HashSet<BoxOrderLineDto> Lines { get; set; } = new HashSet<BoxOrderLineDto>();

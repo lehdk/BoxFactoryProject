@@ -19,7 +19,7 @@ CREATE TABLE [Orders] (
     [Id] INT IDENTITY(1, 1) PRIMARY KEY,
     [Buyer] NVARCHAR(100) NOT NULL,
     [OrderedAt] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
-    [IsShipped] BIT NOT NULL DEFAULT 0
+    [ShippedAt] DATETIME2 DEFAULT NULL
 );
 
 CREATE TABLE [OrderLines] (
@@ -56,3 +56,6 @@ INSERT INTO [Box] ([Width], [Height], [Length], [Weight], [Color], [Price]) VALU
 
 INSERT INTO [Orders] ([Buyer]) VALUES ('Test person');
 INSERT INTO [OrderLines] ([OrderId], [BoxId], [Amount], [Price]) VALUES (1, 1, 3, 199)
+
+INSERT INTO [Orders] ([Buyer], [ShippedAt]) VALUES ('Shipped order buyer', GETUTCDATE());
+INSERT INTO [OrderLines] ([OrderId], [BoxId], [Amount], [Price]) VALUES (2, 2, 3, 199)

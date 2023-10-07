@@ -28,7 +28,7 @@ public sealed class BoxOrderRepository : IBoxOrderRepository
 SELECT [Id]
       ,[Buyer]
       ,[OrderedAt]
-      ,[IsShipped]
+      ,[ShippedAt]
 FROM [BoxFactory].[dbo].[Orders]
 ";
 
@@ -43,7 +43,7 @@ FROM [BoxFactory].[dbo].[Orders]
                         Id = reader.GetInt32(0),
                         Buyer = reader.GetString(1),
                         OrderedAt = reader.GetDateTime(2),
-                        IsShipped = reader.GetBoolean(3),
+                        ShippedAt = reader.IsDBNull(3) ? null : reader.GetDateTime(3)
                     });
                 }
             }
@@ -133,7 +133,7 @@ WHERE [OL].[OrderId] = @OrderId
                             Height = reader.GetInt16(6),
                             Length = reader.GetInt16(7),
                             Weight = reader.GetInt32(8),
-                            Color = (BoxColor) reader.GetByte(9),
+                            Color = (BoxColor)reader.GetByte(9),
                             Price = reader.GetDouble(10),
                             CreatedAt = reader.GetDateTime(11),
                         }

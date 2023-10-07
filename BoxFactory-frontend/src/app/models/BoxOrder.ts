@@ -4,7 +4,7 @@ export type BoxOrder = {
     id: number;
     buyer: string;
     orderedAt: Date;
-    isShipped: boolean;
+    shippedAt: Date;
     Lines: BoxOrderLine[];
 }
 

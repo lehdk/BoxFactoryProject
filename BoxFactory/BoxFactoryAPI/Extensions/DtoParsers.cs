@@ -45,7 +45,7 @@ public static class DtoParsers
             Id = order.Id,
             Buyer = order.Buyer,
             OrderedAt = order.OrderedAt,
-            IsShipped = order.IsShipped,
+            ShippedAt = order.ShippedAt,
             Lines = order.Lines.Select(b => b.ToDto()).ToHashSet()
         };
     }
