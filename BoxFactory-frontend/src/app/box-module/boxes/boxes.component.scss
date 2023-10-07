@@ -4,6 +4,9 @@ main {
 
 .titleRow {
     background-color: #0c0c0c;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .boxRow:nth-child(even) {
@@ -12,4 +15,14 @@ main {
 
 .boxRow:hover {
     background-color: #383838;
+}
+
+.boxGrid {
+    height: 100%;
+    padding-top: 0px;
+    padding-bottom: 25px;
+}
+
+.scrollable {
+    overflow-y: scroll;
 }
