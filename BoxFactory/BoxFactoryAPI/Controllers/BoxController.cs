@@ -42,7 +42,7 @@ public class BoxController : ControllerBase
         var result = await _boxService.GetBoxById(id);
 
         if(result is null)
-            return NotFound();
+            return NotFound($"No box found with the id: {id}");
 
         return Ok(result.ToDto());
     }
@@ -81,7 +81,7 @@ public class BoxController : ControllerBase
         );
 
         if(result is null)
-            return NotFound();
+            return NotFound($"Could not update box since no box was found with the id: {id}");
 
         return Ok(result.ToDto());
     }
@@ -97,7 +97,7 @@ public class BoxController : ControllerBase
 
         if (!result)
         {
-            return NotFound();
+            return NotFound($"No box was found with the id: {id}");
         }
 
         return NoContent();
