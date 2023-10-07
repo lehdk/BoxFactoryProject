@@ -15,7 +15,7 @@ public sealed class BoxOrder
     public DateTime OrderedAt { get; set; }
 
     [Required]
-    public bool IsShipped = false;
+    public bool IsShipped { get; set; } = false;
 
     [Required]
     public HashSet<BoxOrderLine> Lines { get; set; } = new HashSet<BoxOrderLine>();
