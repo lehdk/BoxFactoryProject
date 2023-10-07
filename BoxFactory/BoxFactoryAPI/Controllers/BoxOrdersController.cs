@@ -1,5 +1,5 @@
 ﻿using BoxFactoryApplication.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
+using BoxFactoryDomain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoxFactoryAPI.Controllers;
@@ -18,6 +18,7 @@ public class BoxOrdersController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(List<BoxOrder>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllOrders()
     {
         _logger.LogInformation("Getting all orders");
@@ -27,4 +28,18 @@ public class BoxOrdersController : ControllerBase
         return Ok(result);
     }
 
+    [HttpDelete("{orderId:int}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> DeleteOrderById(int orderId)
+    {
+        _logger.LogInformation("Deleting order with id {id}", orderId);
+
+        var result = await _boxOrderService.DeleteOrderById(orderId);
+
+        if (!result)
+            return NotFound();
+
+        return NoContent();
+    }
 }

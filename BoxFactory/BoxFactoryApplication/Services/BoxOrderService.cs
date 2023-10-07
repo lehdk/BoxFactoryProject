@@ -17,4 +17,9 @@ public sealed class BoxOrderService : IBoxOrderService
     {
         return await _boxOrderRepository.GetAllOrders();
     }
+
+    public async Task<bool> DeleteOrderById(int orderId)
+    {
+        return await _boxOrderRepository.DeleteOrderById(orderId);    
+    }
 }

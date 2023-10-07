@@ -22,7 +22,6 @@ public class BoxController : ControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(List<BoxDTO>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAll()
     {
         _logger.LogInformation("Getting all boxes");

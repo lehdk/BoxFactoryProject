@@ -7,4 +7,6 @@ public interface IBoxOrderRepository
 
     Task<List<BoxOrder>> GetAllOrders();
 
+    Task<bool> DeleteOrderById(int orderId);
+
 }

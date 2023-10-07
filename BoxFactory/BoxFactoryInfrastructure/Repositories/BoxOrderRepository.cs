@@ -59,6 +59,32 @@ FROM [BoxFactory].[dbo].[Orders]
         return result;
     }
 
+    public async Task<bool> DeleteOrderById(int orderId)
+    {
+        bool result = false;
+
+        using (var connection = GetSqlConnection)
+        {
+            await connection.OpenAsync();
+
+            const string query = @"DELETE FROM [BoxFactory].[dbo].[Orders] WHERE [Id] = @OrderId";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+
+                command.Parameters.AddWithValue("@OrderId", orderId);
+
+                var rowsAffected = await command.ExecuteNonQueryAsync();
+
+                result = rowsAffected > 0;
+            }
+
+            await connection.CloseAsync();
+        }
+
+        return result;
+    }
+
     private async Task<HashSet<BoxOrderLine>> GetBoxOrderLines(int orderId)
     {
         var result = new HashSet<BoxOrderLine>();
