@@ -35,6 +35,19 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
     search(event: any): void {
 
+        const searchString: string = event.target.value.toString();
+
+        if (searchString.length == 0) {
+            this.orders = this.orderService.orders.getValue();
+            return;
+        }
+
+        this.orders = this.orderService.orders.getValue().filter(o => {
+            if (o.id + "" == event.target.value.toString()) return true;
+            if(o.buyer.toUpperCase().includes(searchString.toUpperCase())) return true;
+
+            return false;
+        })
     }
 
     ngOnDestroy(): void {

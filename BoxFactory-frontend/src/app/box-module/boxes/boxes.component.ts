@@ -83,17 +83,21 @@ export class BoxesComponent implements OnInit {
     }
 
     search(event: any) {
-        if (event.target.value.toString().length == 0) {
+
+        const searchString: string = event.target.value.toString();
+
+        if (searchString.length == 0) {
             this.boxes = this.boxservice.boxes.getValue();
             return;
         }
+
         this.boxes = this.boxservice.boxes.getValue().filter(f => {
-            if (f.id + "" == event.target.value.toString()) return true;
-            if (f.width + "" == event.target.value.toString()) return true;
-            if (f.height + "" == event.target.value.toString()) return true;
-            if (f.length + "" == event.target.value.toString()) return true;
-            if (f.weight + "" == event.target.value.toString()) return true;
+            if (f.id + "" == searchString) return true;
+            if (f.width + "" == searchString) return true;
+            if (f.height + "" == searchString) return true;
+            if (f.length + "" == searchString) return true;
+            if (f.weight + "" == searchString) return true;
             return false;
-        })
+        });
     }
 }
