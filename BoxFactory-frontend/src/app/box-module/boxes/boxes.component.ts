@@ -15,7 +15,7 @@ export class BoxesComponent implements OnInit {
 
 	boxes: Box[] = [];
 
-	constructor(private boxservice: BoxService, private modalController: ModalController, private router: Router) { }
+	constructor(private boxservice: BoxService, private modalController: ModalController, public router: Router) { }
 
 	ngOnInit(): void {
 		this.boxservice.loadAllBoxes();

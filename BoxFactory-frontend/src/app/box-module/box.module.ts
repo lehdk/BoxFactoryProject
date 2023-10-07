@@ -10,6 +10,7 @@ import { BoxesComponent } from './boxes/boxes.component';
 import { UpdateboxComponent } from './updatebox/updatebox.component';
 import { BoxviewComponent } from './boxview/boxview.component';
 import { BoxColorDisplayNamePipe } from '../models/Box';
+import { OrdersComponent } from './orders/orders.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { BoxColorDisplayNamePipe } from '../models/Box';
         BoxesComponent,
         UpdateboxComponent,
         BoxviewComponent,
-        BoxColorDisplayNamePipe
+        BoxColorDisplayNamePipe,
+        OrdersComponent
     ]
 })
 export class HomePageModule { }

@@ -1,35 +1,39 @@
 <main>
-  <ion-grid>
-    <ion-row>
-      <ion-col size=""></ion-col>
-      <ion-col size="3">
-        <ion-searchbar (ionInput)="search($event)" animated="true" placeholder="Search" color="medium" ></ion-searchbar>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid class="boxGrid scrollable">
-		<ion-row class="titleRow">
-			<ion-col size="1"><b>Id</b></ion-col>
-			<ion-col size="2">Width</ion-col>
-			<ion-col size="2">Height</ion-col>
-			<ion-col size="2">Length</ion-col>
-			<ion-col size="2">Created at</ion-col>
-			<ion-col size="3">Actions</ion-col>
-		</ion-row>
-		<ion-row class="boxRow" *ngFor="let box of boxes">
-			<ion-col size="1"><b>{{box.id}}</b></ion-col>
-			<ion-col size="2">{{box.width}} <i>cm</i></ion-col>
-			<ion-col size="2">{{box.height}} <i>cm</i></ion-col>
-			<ion-col size="2">{{box.length}} <i>cm</i></ion-col>
-			<ion-col size="2">{{box.createdAt | date: 'dd/MM/yyyy - HH:mm'}} <i>(UTC)</i></ion-col>
-        <ion-col size="3">
-            <ion-col size="4"><ion-button color="danger" (click)="delete(box.id)">Delete</ion-button></ion-col>
-            <ion-col size="4"><ion-button color="primary" (click)="update(box.id)">Update</ion-button></ion-col>
-            <ion-col size="4"><ion-button color="medium" (click)="showBox(box.id)">View</ion-button></ion-col>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="1">
+                <ion-button color="medium" (click)="router.navigate(['boxes/orders'])">View Orders</ion-button>
             </ion-col>
-		</ion-row>
-	</ion-grid>
+            <ion-col size=""></ion-col>
+            <ion-col size="3">
+                <ion-searchbar (ionInput)="search($event)" animated="true" placeholder="Search"
+                    color="medium"></ion-searchbar>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid class="boxGrid scrollable">
+        <ion-row class="titleRow">
+            <ion-col size="1"><b>Id</b></ion-col>
+            <ion-col size="2">Width</ion-col>
+            <ion-col size="2">Height</ion-col>
+            <ion-col size="2">Length</ion-col>
+            <ion-col size="2">Created at</ion-col>
+            <ion-col size="3">Actions</ion-col>
+        </ion-row>
+        <ion-row class="boxRow" *ngFor="let box of boxes">
+            <ion-col size="1"><b>{{box.id}}</b></ion-col>
+            <ion-col size="2">{{box.width}} <i>cm</i></ion-col>
+            <ion-col size="2">{{box.height}} <i>cm</i></ion-col>
+            <ion-col size="2">{{box.length}} <i>cm</i></ion-col>
+            <ion-col size="2">{{box.createdAt | date: 'dd/MM/yyyy - HH:mm'}} <i>(UTC)</i></ion-col>
+            <ion-col size="3">
+                <ion-col size="4"><ion-button color="danger" (click)="delete(box.id)">Delete</ion-button></ion-col>
+                <ion-col size="4"><ion-button color="primary" (click)="update(box.id)">Update</ion-button></ion-col>
+                <ion-col size="4"><ion-button color="medium" (click)="showBox(box.id)">View</ion-button></ion-col>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
     <ion-grid>
         <ion-row>
             <ion-col>

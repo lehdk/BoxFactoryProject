@@ -14,7 +14,7 @@ export class BoxService {
 
 	boxes = new BehaviorSubject<Box[]>([]);
 
-	constructor(public http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
 	loadAllBoxes(): void {
 		let response = this.http.get<Box[]>(this.url);
