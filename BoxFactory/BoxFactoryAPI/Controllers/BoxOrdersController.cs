@@ -1,6 +1,7 @@
-﻿using BoxFactoryApplication.Services.Interfaces;
-using BoxFactoryDomain.Entities;
+﻿using BoxFactoryAPI.TransferModels;
+using BoxFactoryApplication.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using BoxFactoryAPI.Extensions;
 
 namespace BoxFactoryAPI.Controllers;
 
@@ -18,12 +19,12 @@ public class BoxOrdersController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(List<BoxOrder>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<BoxOrderDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllOrders()
     {
         _logger.LogInformation("Getting all orders");
 
-        var result = await _boxOrderService.GetAllOrders();
+        var result = (await _boxOrderService.GetAllOrders()).ToDto();
 
         return Ok(result);
     }

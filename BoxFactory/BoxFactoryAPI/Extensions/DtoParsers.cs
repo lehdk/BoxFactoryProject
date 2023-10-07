@@ -5,12 +5,16 @@ namespace BoxFactoryAPI.Extensions;
 
 public static class DtoParsers
 {
-    public static List<BoxDTO> ToDto(this IList<Box> list)
+
+    /*
+     * BOX DTO
+     */
+    public static List<BoxDto> ToDto(this IList<Box> list)
     {
         return list.Select(b => b.ToDto()).ToList();
     }
 
-    public static BoxDTO ToDto(this Box box)
+    public static BoxDto ToDto(this Box box)
     {
         return new()
         {
@@ -22,6 +26,38 @@ public static class DtoParsers
             Color = box.Color,
             Price = box.Price,
             CreatedAt = box.CreatedAt
+        };
+    }
+
+    /*
+     * BOX ORDER DTO
+     */
+
+    public static List<BoxOrderDto> ToDto(this IList<BoxOrder> orderList)
+    {
+        return orderList.Select(o => o.ToDto()).ToList();
+    }
+
+    public static BoxOrderDto ToDto(this BoxOrder order)
+    {
+        return new BoxOrderDto()
+        {
+            Id = order.Id,
+            Buyer = order.Buyer,
+            OrderedAt = order.OrderedAt,
+            IsShipped = order.IsShipped,
+            Lines = order.Lines.Select(b => b.ToDto()).ToHashSet()
+        };
+    }
+
+    public static BoxOrderLineDto ToDto(this BoxOrderLine boxOrderLine)
+    {
+        return new BoxOrderLineDto()
+        {
+            Id = boxOrderLine.Id,
+            Box = boxOrderLine.Box.ToDto(),
+            Amount = boxOrderLine.Amount,
+            Price = boxOrderLine.Price
         };
     }
 }

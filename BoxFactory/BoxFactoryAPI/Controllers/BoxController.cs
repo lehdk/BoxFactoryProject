@@ -20,7 +20,7 @@ public class BoxController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(List<BoxDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<BoxDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetAll()
     {
@@ -34,7 +34,7 @@ public class BoxController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    [ProducesResponseType(typeof(BoxDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BoxDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id)
@@ -50,7 +50,7 @@ public class BoxController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(BoxDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BoxDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post([FromBody] ModifyObject postObject)
     {
@@ -65,7 +65,7 @@ public class BoxController : ControllerBase
     }
 
     [HttpPatch("{id:int}")]
-    [ProducesResponseType(typeof(BoxDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BoxDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Patch(int id, [FromBody] ModifyObject patchObject)

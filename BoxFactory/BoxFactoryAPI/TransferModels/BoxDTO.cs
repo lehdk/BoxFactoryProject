@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BoxFactoryAPI.TransferModels;
 
-public sealed class BoxDTO
+public sealed class BoxDto
 {
     public int Id { get; set; }
 

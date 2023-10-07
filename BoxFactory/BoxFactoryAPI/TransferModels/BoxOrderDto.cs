@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 
-namespace BoxFactoryDomain.Entities;
+namespace BoxFactoryAPI.TransferModels;
 
-public sealed class BoxOrder
+public sealed class BoxOrderDto
 {
     [Required]
     public int Id { get; set; }
@@ -18,16 +19,16 @@ public sealed class BoxOrder
     public bool IsShipped = false;
 
     [Required]
-    public HashSet<BoxOrderLine> Lines { get; set; } = new HashSet<BoxOrderLine>();
+    public HashSet<BoxOrderLineDto> Lines { get; set; } = new HashSet<BoxOrderLineDto>();
 }
 
-public sealed class BoxOrderLine
+public sealed class BoxOrderLineDto
 {
     [Required]
     public int Id { get; set; }
 
     [Required]
-    public Box Box { get; set; }
+    public BoxDto Box { get; set; }
 
     [Required]
     public int Amount { get; set; }
