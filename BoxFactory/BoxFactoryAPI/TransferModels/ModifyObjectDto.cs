@@ -3,7 +3,7 @@ using BoxFactoryDomain.Entities;
 
 namespace BoxFactoryAPI.TransferModels;
 
-public sealed class ModifyObject
+public sealed class ModifyObjectDto
 {
     /// <summary>
     /// The width of the box in cm

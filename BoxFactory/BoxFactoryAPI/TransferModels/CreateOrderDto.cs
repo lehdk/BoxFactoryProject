@@ -1,13 +1,9 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BoxFactoryAPI.TransferModels;
 
-public sealed class BoxOrderDto
+public sealed class CreateOrderDto
 {
-    [Required]
-    public int Id { get; set; }
-
     [Required]
     [StringLength(100)]
     public string Street { get; set; } = string.Empty;
@@ -24,22 +20,13 @@ public sealed class BoxOrderDto
     [StringLength(20)]
     public string Zip { get; set; } = string.Empty;
 
-    [Required]
-    public DateTime OrderedAt { get; set; }
-
-    public DateTime? ShippedAt { get; set; } = null;
-
-    [Required]
-    public HashSet<BoxOrderLineDto> Lines { get; set; } = new HashSet<BoxOrderLineDto>();
+    public List<AddOrderLineDto> OrderLines { get; set; } = new List<AddOrderLineDto>();
 }
 
-public sealed class BoxOrderLineDto
+public sealed class AddOrderLineDto
 {
     [Required]
-    public int Id { get; set; }
-
-    [Required]
-    public BoxDto Box { get; set; }
+    public int BoxId { get; set; }
 
     [Required]
     public int Amount { get; set; }

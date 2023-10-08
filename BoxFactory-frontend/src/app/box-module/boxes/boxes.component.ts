@@ -18,8 +18,6 @@ export class BoxesComponent implements OnInit {
 	constructor(private boxservice: BoxService, private modalController: ModalController, public router: Router) { }
 
 	ngOnInit(): void {
-		this.boxservice.loadAllBoxes();
-
 		this.boxservice.boxes.subscribe(newData => {
 			const tempResult = newData.map(value => Object.assign(new Box(), value));
 

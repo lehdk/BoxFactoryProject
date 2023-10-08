@@ -1,4 +1,5 @@
 ﻿using BoxFactoryDomain.Entities;
+using BoxFactoryDomain.RequestModels;
 
 namespace BoxFactoryInfrastructure.Repositories.Interfaces;
 
@@ -9,4 +10,5 @@ public interface IBoxOrderRepository
 
     Task<bool> DeleteOrderById(int orderId);
 
+    Task<BoxOrder?> CreateOrder(string street, string number, string city, string zip, List<CreateOrderLine> list);
 }

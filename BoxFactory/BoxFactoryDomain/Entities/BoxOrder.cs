@@ -9,7 +9,19 @@ public sealed class BoxOrder
 
     [Required]
     [StringLength(100)]
-    public string Buyer { get; set; } = string.Empty;
+    public string Street { get; set; } = string.Empty;
+
+    [Required]
+    [StringLength(20)]
+    public string Number { get; set; } = string.Empty;
+
+    [Required]
+    [StringLength(100)]
+    public string City { get; set; } = string.Empty;
+
+    [Required]
+    [StringLength(20)]
+    public string Zip { get; set; } = string.Empty;
 
     [Required]
     public DateTime OrderedAt { get; set; }

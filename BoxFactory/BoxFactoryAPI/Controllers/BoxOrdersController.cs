@@ -2,6 +2,8 @@
 using BoxFactoryApplication.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BoxFactoryAPI.Extensions;
+using BoxFactoryDomain.Entities;
+using BoxFactoryDomain.RequestModels;
 
 namespace BoxFactoryAPI.Controllers;
 
@@ -27,6 +29,29 @@ public class BoxOrdersController : ControllerBase
         var result = (await _boxOrderService.GetAllOrders()).ToDto();
 
         return Ok(result);
+    }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(BoxOrderDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto data)
+    {
+        _logger.LogInformation("Creating new order");
+
+        var result = await _boxOrderService.CreateOrder(
+            data.Street,
+            data.Number,
+            data.City,
+            data.Zip,
+            new List<CreateOrderLine>()
+        );
+
+        if(result is null)
+        {
+            throw new Exception("Could not create the odrder");
+        }
+
+        return Ok(result.ToDto());
     }
 
     [HttpDelete("{orderId:int}")]

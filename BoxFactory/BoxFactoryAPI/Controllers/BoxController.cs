@@ -50,7 +50,7 @@ public class BoxController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(BoxDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Post([FromBody] ModifyObject postObject)
+    public async Task<IActionResult> Post([FromBody] ModifyObjectDto postObject)
     {
         _logger.LogInformation("Creating a new box");
 
@@ -66,7 +66,7 @@ public class BoxController : ControllerBase
     [ProducesResponseType(typeof(BoxDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Patch(int id, [FromBody] ModifyObject patchObject)
+    public async Task<IActionResult> Patch(int id, [FromBody] ModifyObjectDto patchObject)
     {
         _logger.LogInformation("Patching box with id {id} with data {data}", id, patchObject);
 

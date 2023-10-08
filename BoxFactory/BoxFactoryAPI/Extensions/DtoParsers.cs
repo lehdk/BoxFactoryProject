@@ -43,7 +43,10 @@ public static class DtoParsers
         return new BoxOrderDto()
         {
             Id = order.Id,
-            Buyer = order.Buyer,
+            Street = order.Street,
+            Number = order.Number,
+            City = order.City,
+            Zip = order.Zip,
             OrderedAt = order.OrderedAt,
             ShippedAt = order.ShippedAt,
             Lines = order.Lines.Select(b => b.ToDto()).ToHashSet()

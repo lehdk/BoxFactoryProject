@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">Add new order</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form id="inputForm" [formGroup]="inputForm" (ngSubmit)="submitForm()">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="3">
+                    <label for="street">Street</label>
+                </ion-col>
+                <ion-col>
+                    <input type="text" name="street" formControlName="street" required>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="3">
+                    <label for="number">Number</label>
+                </ion-col>
+                <ion-col>
+                    <input type="text" name="number" formControlName="number" required>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="3">
+                    <label for="city">City</label>
+                </ion-col>
+                <ion-col>
+                    <input type="text" name="city" formControlName="city" required>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="3">
+                    <label for="zip">Zip code</label>
+                </ion-col>
+                <ion-col>
+                    <input type="text" name="zip" formControlName="zip" required>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="2">
+                    <ion-button color="success" type="submit">Add</ion-button>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-button color="danger" (click)="cancel()">Cancel</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { BoxOrder } from '../models/BoxOrder';
+import { CreateOrder } from '../models/requestModels/CreateOrder';
 
 @Injectable({
     providedIn: 'root'
@@ -32,5 +33,21 @@ export class OrdersService {
 				this.orders.next(newState);
 			}
 		});
+    }
+
+    createOrder(createOrder: CreateOrder) {
+        let response = this.http.post<BoxOrder | null>(this.url, createOrder);
+
+        response.subscribe(result => {
+            if (!result) {
+                return;
+            }
+
+            let boxes: BoxOrder[] = this.orders.getValue();
+
+            boxes.push(result);
+
+            this.orders.next(boxes);
+        });
     }
 }

@@ -17,7 +17,10 @@ CREATE TABLE [Box] (
 
 CREATE TABLE [Orders] (
     [Id] INT IDENTITY(1, 1) PRIMARY KEY,
-    [Buyer] NVARCHAR(100) NOT NULL,
+    [Street] NVARCHAR(100) NOT NULL,
+    [Number] NVARCHAR(20) NOT NULL,
+    [City] NVARCHAR(100) NOT NULL,
+    [Zip] NVARCHAR(20) NOT NULL,
     [OrderedAt] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
     [ShippedAt] DATETIME2 DEFAULT NULL
 );
@@ -54,8 +57,8 @@ INSERT INTO [Box] ([Width], [Height], [Length], [Weight], [Color], [Price]) VALU
     (51, 420, 74, 9, 3, 259);
 
 
-INSERT INTO [Orders] ([Buyer]) VALUES ('Test person');
-INSERT INTO [OrderLines] ([OrderId], [BoxId], [Amount], [Price]) VALUES (1, 1, 3, 199)
+INSERT INTO [Orders] ([Street], [Number], [City], [Zip]) VALUES ('Diagonalley', '2b', 'London', 'W485');
+INSERT INTO [OrderLines] ([OrderId], [BoxId], [Amount], [Price]) VALUES (1, 1, 3, 199);
 
-INSERT INTO [Orders] ([Buyer], [ShippedAt]) VALUES ('Shipped order buyer', GETUTCDATE());
-INSERT INTO [OrderLines] ([OrderId], [BoxId], [Amount], [Price]) VALUES (2, 2, 3, 199)
+INSERT INTO [Orders] ([Street], [Number], [City], [Zip], [ShippedAt]) VALUES ('Shipping Street', '25', 'ShipCity', '17986', GETUTCDATE());
+INSERT INTO [OrderLines] ([OrderId], [BoxId], [Amount], [Price]) VALUES (2, 2, 3, 199);
