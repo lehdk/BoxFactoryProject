@@ -1,0 +1,28 @@
+main {
+    height: 100%;
+}
+
+.titleRow {
+    background-color: #0c0c0c;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.orderRow:nth-child(even) {
+    background-color: #202020;
+}
+
+.orderRow:hover {
+    background-color: #383838;
+}
+
+.orderGrid {
+    height: 80%;
+    padding-top: 0px;
+    padding-bottom: 25px;
+}
+
+.scrollable {
+    overflow-y: scroll;
+}

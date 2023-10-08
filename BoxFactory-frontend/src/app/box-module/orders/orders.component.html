@@ -13,7 +13,7 @@
         </ion-row>
     </ion-grid>
 
-    <ion-grid>
+    <ion-grid class="orderGrid scrollable">
         <ion-row class="titleRow">
 			<ion-col><b>Id</b></ion-col>
 			<ion-col>Buyer</ion-col>
@@ -22,7 +22,7 @@
 			<ion-col></ion-col>
 		</ion-row>
         
-        <ion-row *ngFor="let order of orders">
+        <ion-row class="orderRow" *ngFor="let order of orders">
             <ion-col>{{order.id}}</ion-col>
             <ion-col>{{order.buyer}}</ion-col>
             <ion-col>{{order.orderedAt | date: 'dd/MM/yyyy - HH:mm'}}</ion-col>
