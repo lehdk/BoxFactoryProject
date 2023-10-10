@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using BoxFactoryDomain.Entities;
+using BoxFactoryDomain.Exceptions;
 using BoxFactoryDomain.RequestModels;
 using BoxFactoryInfrastructure.Configuration;
 using BoxFactoryInfrastructure.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BoxFactoryInfrastructure.Repositories;
 
@@ -290,5 +290,45 @@ WHERE [OL].[OrderId] = @OrderId
         }
 
         return result;
+    }
+
+    public async Task<DateTime> ShipOrder(int orderId)
+    {
+
+        DateTime utcNow = DateTime.UtcNow;
+
+        var order = await GetOrderById(orderId);
+
+        if(order is null) 
+            throw new NotFoundException($"Order with the id {orderId} was not found");
+
+        if (order.ShippedAt is not null)
+            throw new AlreadyShippedException($"The order has already been shipped at {order.ShippedAt}");
+
+        bool result = false;
+
+        using (var connection = GetSqlConnection)
+        {
+            await connection.OpenAsync();
+
+            const string query = @"UPDATE [BoxFactory].[dbo].[Orders] SET [ShippedAt] = @UtcNow WHERE [Id] = @OrderId";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@UtcNow", utcNow);
+                command.Parameters.AddWithValue("@OrderId", orderId);
+
+                var rowsAffected = await command.ExecuteNonQueryAsync();
+
+                result = rowsAffected > 0;
+            }
+
+            await connection.CloseAsync();
+        }
+
+        if(!result)
+            throw new Exception("Could not ship order");
+        
+        return utcNow;
     }
 }

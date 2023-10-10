@@ -34,6 +34,10 @@ export class OrdersComponent implements OnInit, OnDestroy {
         this.orderService.delete(id);
     }
 
+    shipOrder(orderId: number) {
+        this.orderService.shipOrder(orderId);
+    }
+
     showOrder(id: number) { }
 
     search(event: any): void {

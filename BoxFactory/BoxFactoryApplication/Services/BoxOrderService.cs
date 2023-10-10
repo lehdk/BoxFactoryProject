@@ -28,4 +28,9 @@ public sealed class BoxOrderService : IBoxOrderService
     {
         return await _boxOrderRepository.CreateOrder(street, number, city, zip, list);
     }
+
+    public async Task<DateTime> ShipOrder(int orderId)
+    {
+        return await _boxOrderRepository.ShipOrder(orderId);
+    }
 }
