@@ -39,9 +39,6 @@ public sealed class BoxOrderLineDto
     public int Id { get; set; }
 
     [Required]
-    public BoxDto Box { get; set; }
-
-    [Required]
     public int Amount { get; set; }
 
     [Required]

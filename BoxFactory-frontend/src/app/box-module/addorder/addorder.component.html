@@ -49,4 +49,32 @@
             </ion-row>
         </ion-grid>
     </form>
+
+    <ion-grid>
+        <ion-row *ngFor="let line of lines; let i = index">
+                <ion-col class="lineLabelCol">
+                    <label>Box Id</label>
+                </ion-col>
+                <ion-col>
+                    <input class="lineInput" type="text" name="boxId{{i}}" [(ngModel)]="line.boxId" (change)="boxIdChanged(i, line.boxId + '')">
+                </ion-col>
+                <ion-col class="lineLabelCol">
+                    <label>Price</label>
+                </ion-col>
+                <ion-col>
+                    <input class="lineInput" type="text" name="price{{i}}" [(ngModel)]="line.price">
+                </ion-col>
+                <ion-col class="lineLabelCol">
+                    <label>Amount</label>
+                </ion-col>
+                <ion-col>
+                    <input class="lineInput" type="text" name="amount{{i}}" [(ngModel)]="line.amount">
+                </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button color="warning" (click)="addLine()">Add line</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

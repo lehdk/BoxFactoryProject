@@ -43,7 +43,7 @@ public class BoxOrdersController : ControllerBase
             data.Number,
             data.City,
             data.Zip,
-            new List<CreateOrderLine>()
+            data.OrderLines.Parse()
         );
 
         if(result is null)
