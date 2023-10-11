@@ -1,4 +1,6 @@
-﻿using BoxFactoryDomain.Entities;
+﻿using System.IO;
+using BoxFactoryDomain.Entities;
+using BoxFactoryDomain.Exceptions;
 using BoxFactoryDomain.RequestModels;
 using BoxFactoryInfrastructure.Configuration;
 using BoxFactoryInfrastructure.Repositories.Interfaces;
@@ -182,12 +184,61 @@ VALUES
 
         var result = await GetOrderById(insertedId.Value);
 
+        if (result is null) throw new Exception("Could not create order");
+
         foreach (var line in list)
         {
-            // TODO: ADD LINES TO DB
+            var lineResult = await InsertOrderLine(result.Id, line);
+            result.Lines.Add(lineResult);
         }
 
         return result;
+    }
+
+    private async Task<BoxOrderLine> InsertOrderLine(int orderId, CreateOrderLine data)
+    {
+        int? insertedId = null;
+
+        using (var connection = GetSqlConnection)
+        {
+            await connection.OpenAsync();
+
+            const string query = @"
+INSERT INTO 
+    [OrderLines] ([OrderId], [BoxId], [Amount], [Price]) OUTPUT INSERTED.Id
+VALUES 
+    (@OrderId, @BoxId, @Amount, @Price);
+";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@OrderId", orderId);
+                command.Parameters.AddWithValue("@BoxId", data.BoxId);
+                command.Parameters.AddWithValue("@Amount", data.Amount);
+                command.Parameters.AddWithValue("@Price", data.Price);
+
+                var reader = await command.ExecuteReaderAsync();
+
+                if (reader.HasRows && await reader.ReadAsync())
+                {
+                    insertedId = reader.GetInt32(0);
+                }
+            }
+
+            await connection.CloseAsync();
+        }
+
+        if(insertedId is null)
+        {
+            throw new Exception("Could not insert order line");
+        }
+
+        return new BoxOrderLine()
+        {
+            Id = insertedId.Value,
+            Amount = data.Amount,
+            Price = data.Price,
+        };
     }
 
     private async Task<HashSet<BoxOrderLine>> GetBoxOrderLines(int orderId)
@@ -231,17 +282,6 @@ WHERE [OL].[OrderId] = @OrderId
                         Id = reader.GetInt32(0),
                         Amount = reader.GetInt32(2),
                         Price = reader.GetDouble(3),
-                        Box = new Box()
-                        {
-                            Id = reader.GetInt32(4),
-                            Width = reader.GetInt16(5),
-                            Height = reader.GetInt16(6),
-                            Length = reader.GetInt16(7),
-                            Weight = reader.GetInt32(8),
-                            Color = (BoxColor)reader.GetByte(9),
-                            Price = reader.GetDouble(10),
-                            CreatedAt = reader.GetDateTime(11),
-                        }
                     });
                 }
             }
@@ -250,5 +290,45 @@ WHERE [OL].[OrderId] = @OrderId
         }
 
         return result;
+    }
+
+    public async Task<DateTime> ShipOrder(int orderId)
+    {
+
+        DateTime utcNow = DateTime.UtcNow;
+
+        var order = await GetOrderById(orderId);
+
+        if(order is null) 
+            throw new NotFoundException($"Order with the id {orderId} was not found");
+
+        if (order.ShippedAt is not null)
+            throw new AlreadyShippedException($"The order has already been shipped at {order.ShippedAt}");
+
+        bool result = false;
+
+        using (var connection = GetSqlConnection)
+        {
+            await connection.OpenAsync();
+
+            const string query = @"UPDATE [BoxFactory].[dbo].[Orders] SET [ShippedAt] = @UtcNow WHERE [Id] = @OrderId";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@UtcNow", utcNow);
+                command.Parameters.AddWithValue("@OrderId", orderId);
+
+                var rowsAffected = await command.ExecuteNonQueryAsync();
+
+                result = rowsAffected > 0;
+            }
+
+            await connection.CloseAsync();
+        }
+
+        if(!result)
+            throw new Exception("Could not ship order");
+        
+        return utcNow;
     }
 }

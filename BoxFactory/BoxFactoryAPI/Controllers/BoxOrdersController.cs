@@ -2,8 +2,8 @@
 using BoxFactoryApplication.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BoxFactoryAPI.Extensions;
-using BoxFactoryDomain.Entities;
-using BoxFactoryDomain.RequestModels;
+using BoxFactoryDomain.Exceptions;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BoxFactoryAPI.Controllers;
 
@@ -43,7 +43,7 @@ public class BoxOrdersController : ControllerBase
             data.Number,
             data.City,
             data.Zip,
-            new List<CreateOrderLine>()
+            data.OrderLines.Parse()
         );
 
         if(result is null)
@@ -67,5 +67,29 @@ public class BoxOrdersController : ControllerBase
             return NotFound();
 
         return NoContent();
+    }
+
+    [HttpPatch("ship/{orderId:int}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(DateTime), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> ShipOrder(int orderId)
+    {
+        _logger.LogInformation("Shipping order with orderId {orderId}", orderId);
+        try
+        {
+            var result = await _boxOrderService.ShipOrder(orderId);
+            
+            return Ok(result);
+        } catch (NotFoundException e)
+        {
+            return NotFound();
+        } catch (AlreadyShippedException e)
+        {
+            return Conflict(e.Message);
+        } catch(Exception e)
+        {
+            throw;
+        }
     }
 }

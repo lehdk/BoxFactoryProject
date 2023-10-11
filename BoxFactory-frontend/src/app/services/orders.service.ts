@@ -35,6 +35,24 @@ export class OrdersService {
 		});
     }
 
+    shipOrder(orderId: number) {
+        let response = this.http.patch<Date>(`${this.url}/ship/${orderId}`, {});
+
+        response.subscribe(result => {
+            if(!result)
+                return;
+            
+            let orders: BoxOrder[] = this.orders.getValue();
+
+            let orderToShip = orders.find(o => o.id === orderId);
+
+            if(!orderToShip)
+                return;
+
+            orderToShip.shippedAt = result;
+        });
+    }
+
     createOrder(createOrder: CreateOrder) {
         let response = this.http.post<BoxOrder | null>(this.url, createOrder);
 

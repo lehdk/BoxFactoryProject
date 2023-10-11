@@ -38,9 +38,6 @@ public sealed class BoxOrderLine
     public int Id { get; set; }
 
     [Required]
-    public Box Box { get; set; }
-
-    [Required]
     public int Amount { get; set; }
 
     [Required]

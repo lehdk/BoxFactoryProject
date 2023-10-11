@@ -1,5 +1,6 @@
 ﻿using BoxFactoryAPI.TransferModels;
 using BoxFactoryDomain.Entities;
+using BoxFactoryDomain.RequestModels;
 
 namespace BoxFactoryAPI.Extensions;
 
@@ -58,9 +59,23 @@ public static class DtoParsers
         return new BoxOrderLineDto()
         {
             Id = boxOrderLine.Id,
-            Box = boxOrderLine.Box.ToDto(),
             Amount = boxOrderLine.Amount,
             Price = boxOrderLine.Price
         };
+    }
+
+    public static CreateOrderLine Parse(this AddOrderLineDto dto)
+    {
+        return new CreateOrderLine()
+        {
+            BoxId = dto.BoxId,
+            Amount = dto.Amount,
+            Price = dto.Price,
+        };
+    }
+
+    public static List<CreateOrderLine> Parse(this List<AddOrderLineDto> list)
+    {
+        return list.Select(i => i.Parse()).ToList();
     }
 }
