@@ -29,6 +29,11 @@ jobs:
               uses: actions/setup-node@v3
               with: 
                 node-version: 18
+            - name: Install frontend dependencies
+              run: cd BoxFactory-frontend && npm install
+
+            - name: Build frontend
+              run: cd BoxFactory-frontend && npm run build
 
 
             - name: Build Backend
