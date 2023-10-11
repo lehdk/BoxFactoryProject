@@ -29,7 +29,7 @@ jobs:
               run: dotnet build BoxFactory/BoxFactoryAPI/BoxFactoryAPI.csproj
             
             - name: Run Backend
-              run: dotnet run BoxFactory/BoxFactoryAPI/BoxFactoryAPI.csproj & echo "API_PID=$!" >> $GITHUB_ENV
+              run: dotnet run --project BoxFactory/BoxFactoryAPI/BoxFactoryAPI.csproj & echo "API_PID=$!" >> $GITHUB_ENV
               env:
                  pgconn: ${{secrets.PGCONN}}
             
