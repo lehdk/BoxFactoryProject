@@ -236,6 +236,7 @@ VALUES
         return new BoxOrderLine()
         {
             Id = insertedId.Value,
+            BoxId = data.BoxId,
             Amount = data.Amount,
             Price = data.Price,
         };

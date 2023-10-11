@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using BoxFactoryAPI.Extensions;
 using BoxFactoryDomain.Exceptions;
 using Microsoft.AspNetCore.Http.HttpResults;
+using BoxFactoryDomain.Entities;
 
 namespace BoxFactoryAPI.Controllers;
 
@@ -38,13 +39,21 @@ public class BoxOrdersController : ControllerBase
     {
         _logger.LogInformation("Creating new order");
 
-        var result = await _boxOrderService.CreateOrder(
-            data.Street,
-            data.Number,
-            data.City,
-            data.Zip,
-            data.OrderLines.Parse()
-        );
+        BoxOrder? result;
+        try
+        {
+            result = await _boxOrderService.CreateOrder(
+                data.Street,
+                data.Number,
+                data.City,
+                data.Zip,
+                data.OrderLines.Parse()
+            );
+        } catch(EmptyListException e)
+        {
+            _logger.LogError(e, e.Message);
+            return BadRequest(e.Message);
+        }
 
         if(result is null)
         {

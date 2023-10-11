@@ -1,5 +1,6 @@
 ﻿using BoxFactoryApplication.Services.Interfaces;
 using BoxFactoryDomain.Entities;
+using BoxFactoryDomain.Exceptions;
 using BoxFactoryDomain.RequestModels;
 using BoxFactoryInfrastructure.Repositories.Interfaces;
 
@@ -26,6 +27,9 @@ public sealed class BoxOrderService : IBoxOrderService
 
     public async Task<BoxOrder?> CreateOrder(string street, string number, string city, string zip, List<CreateOrderLine> list)
     {
+        if(list.Count == 0)
+            throw new EmptyListException("There must be order lines to make an order");
+
         return await _boxOrderRepository.CreateOrder(street, number, city, zip, list);
     }
 

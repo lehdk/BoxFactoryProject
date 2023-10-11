@@ -11,6 +11,7 @@ export type BoxOrder = {
 
 export type BoxOrderLine = {
     id: number;
+    boxId: number;
     amount: number;
     price: number;
 }
