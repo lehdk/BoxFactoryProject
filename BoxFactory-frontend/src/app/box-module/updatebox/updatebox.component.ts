@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Box, BoxColor } from 'src/app/models/Box';
 import { ModifyBox } from 'src/app/models/requestModels/ModifyBox';
@@ -20,12 +20,33 @@ export class UpdateboxComponent implements OnInit {
 
     constructor(private modalController: ModalController) {
         this.inputForm = new FormGroup({
-            width: new FormControl(),
-            height: new FormControl(),
-            length: new FormControl(),
-            weight: new FormControl(),
-            color: new FormControl(),
-            price: new FormControl(),
+            width: new FormControl(1, [
+                Validators.required,
+                Validators.min(1),
+                Validators.max(2000)
+            ]),
+            height: new FormControl(1, [
+                Validators.required,
+                Validators.min(1),
+                Validators.max(2000)
+            ]),
+            length: new FormControl(1, [
+                Validators.required,
+                Validators.min(1),
+                Validators.max(2000)
+            ]),
+            weight: new FormControl(1, [
+                Validators.required,
+                Validators.min(0)
+            ]),
+            color: new FormControl("Red", [
+                Validators.required
+            ]),
+            price: new FormControl(1, [
+                Validators.required,
+                Validators.min(1),
+                Validators.max(2000)
+            ]),
         });
     }
 
@@ -71,13 +92,5 @@ export class UpdateboxComponent implements OnInit {
         const numericValue = inputValue.replace(/[^0-9]/g, '');
 
         event.target.value = numericValue;
-    }
-
-    forceFloat(event: any) {
-        // TODO: Make this only take 0-9 and one .
-        /*const inputValue = event.target.value;
-        const numericValue = inputValue.replace(/[^0-9]/g, '');
-
-        event.target.value = numericValue;*/
     }
 }
