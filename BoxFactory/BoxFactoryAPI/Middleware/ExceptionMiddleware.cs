@@ -18,12 +18,14 @@ public sealed class ExceptionMiddleware
         try
         {
             await _next(context);
-        } catch (InvalidColorException e)
+        } 
+        catch (InvalidColorException e)
         {
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
 
             await context.Response.WriteAsync($"{nameof(InvalidColorException)} {e.Message}");
-        } catch (Exception ex)
+        } 
+        catch (Exception ex)
         {
             _logger.LogError(ex, "An error was caught by the exception middleware");
 
