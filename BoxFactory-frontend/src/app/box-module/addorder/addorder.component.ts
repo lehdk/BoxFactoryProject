@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Box } from 'src/app/models/Box';
 import { BoxOrderLine } from 'src/app/models/BoxOrder';
@@ -19,10 +19,26 @@ export class AddorderComponent implements OnInit {
 
     constructor(private modalController: ModalController, private boxService: BoxService) {
         this.inputForm = new FormGroup({
-            street: new FormControl(),
-            number: new FormControl(),
-            city: new FormControl(),
-            zip: new FormControl(),
+            street: new FormControl("", [
+                Validators.required,
+                Validators.minLength(1),
+                Validators.maxLength(100)
+            ]),
+            number: new FormControl("", [
+                Validators.required,
+                Validators.minLength(1),
+                Validators.maxLength(20)
+            ]),
+            city: new FormControl("", [
+                Validators.required,
+                Validators.minLength(1),
+                Validators.maxLength(100)
+            ]),
+            zip: new FormControl("", [
+                Validators.required,
+                Validators.minLength(1),
+                Validators.maxLength(20)
+            ]),
         });
     }
 
