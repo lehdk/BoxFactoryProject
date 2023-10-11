@@ -29,12 +29,10 @@ jobs:
               run: dotnet build BoxFactory/BoxFactoryAPI/BoxFactoryAPI.csproj
             
             - name: Run Backend
-              run: dotnet run --project BoxFactory/BoxFactoryAPI/BoxFactoryAPI.csproj & echo "API_PID=$!" >> $GITHUB_ENV
-              env:
-                 pgconn: ${{secrets.PGCONN}}
+              run: dotnet run --project BoxFactory/BoxFactoryAPI/BoxFactoryAPI.csproj &
             
             - name: Sleep and kill
-              run: sleep 15 && kill $API_PID
+              run: sleep 15 && pkill -f "dotnet BoxFactoryAPI.dll" ||true
       
             - name: Run tests
               run: dotnet test BoxFactory/BoxFactoryUnitTests/BoxFactoryUnitTests.csproj
